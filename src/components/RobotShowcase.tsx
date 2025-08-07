@@ -125,13 +125,13 @@ const RobotShowcase = () => {
                 key={robot.id}
                 className="flex-shrink-0 w-[380px] h-[500px]"
               >
-                <Card className="h-full bg-white rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-shadow duration-300">
+                <Card className="h-full rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 bg-white/10 backdrop-blur-md border-white/20 hover:bg-white hover:backdrop-blur-none">
                   {/* Image Section */}
-                  <div className="relative h-[300px] bg-gray-100">
+                  <div className="relative h-[300px] bg-gray-100/10 hover:bg-gray-100 transition-colors duration-300">
                     <Button
                       onClick={() => handleViewDetails(robot.id)}
                       size="sm"
-                      className="absolute top-4 left-4 z-10 bg-white/90 text-gray-900 hover:bg-white"
+                      className="absolute top-4 left-4 z-10 bg-white/90 text-gray-900 hover:bg-white transition-all duration-300"
                     >
                       View Details
                     </Button>
@@ -144,14 +144,16 @@ const RobotShowcase = () => {
                   </div>
 
                   {/* Content Section */}
-                  <div className="p-6">
-                    <p className="text-sm text-gray-500 mb-2">{robot.category}</p>
+                  <div className="relative h-[300px] bg-gray-100/10 hover:bg-gray-100 transition-colors duration-300">
+                    <p className="text-sm text-white/70 hover:text-gray-500 transition-colors duration-300 mb-2 group-hover:text-gray-500">
+                      {robot.category}
+                    </p>
                     
-                    <h3 className="text-2xl font-bold text-gray-900 mb-4">
+                    <h3 className="text-2xl font-bold text-white hover:text-gray-900 transition-colors duration-300 mb-4 group-hover:text-gray-900">
                       {robot.series}
                     </h3>
                     
-                    <p className="text-gray-600 mb-6 line-clamp-2">
+                    <p className="text-white/80 hover:text-gray-600 transition-colors duration-300 mb-6 line-clamp-2 group-hover:text-gray-600">
                       {robot.description}
                     </p>
 
@@ -160,7 +162,7 @@ const RobotShowcase = () => {
                         <button
                           key={model}
                           onClick={() => handleViewDetails(robot.id)}
-                          className="text-blue-600 hover:text-blue-800 font-medium"
+                          className="text-blue-300 hover:text-blue-600 transition-colors duration-300 font-medium"
                         >
                           {model}
                         </button>
