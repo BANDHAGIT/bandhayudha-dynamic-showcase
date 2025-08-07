@@ -438,6 +438,36 @@ const Members = () => {
           </div>
         </section>
 
+        {/* Mentor Section - TAMBAHAN BARU */}
+        <section className="py-5 bg-white">
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+                Mentor
+              </h2>
+            </div>
+            
+            <div className="max-w-2xl mx-auto">
+              <div className="flex flex-col items-center text-center">
+                <img
+                  src="https://mesin.ft.undip.ac.id/wp-content/uploads/2018/02/Munadi-1.jpg"
+                  alt="Dr. Munadi, S.T., M.T."
+                  className="w-48 h-56 rounded-2xl object-cover shadow-lg mb-6"
+                />
+                <h3 className="text-2xl font-bold text-foreground mb-2">
+                  Dr. Munadi, S.T., M.T.
+                </h3>
+                <p className="text-lg text-tech-blue mb-6">
+                  Team Director
+                </p>
+                <blockquote className="italic text-lg text-muted-foreground max-w-xl">
+                  "Innovation distinguishes between a leader and a follower. In robotics, we don't just build machines, we create the future."
+                </blockquote>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* Key Members */}
         <section className="py-20">
           <div className="container mx-auto px-4">
