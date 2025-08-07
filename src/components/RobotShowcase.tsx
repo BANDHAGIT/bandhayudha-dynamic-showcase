@@ -98,8 +98,22 @@ const RobotShowcase = () => {
   };
 
   return (
-    <section className="relative min-h-screen bg-gray-900">
-      <div className="h-screen flex flex-col">
+    <section className="relative min-h-screen bg-gray-900 overflow-hidden">
+      {/* Background Video */}
+      <video
+        autoPlay
+        muted
+        loop
+        playsInline
+        className="absolute inset-0 w-full h-full object-cover z-0"
+      >
+        <source src="/videos/hero-video.webm" type="video/webm" />
+      </video>
+      
+      {/* Dark Overlay */}
+      <div className="absolute inset-0 bg-black/50 z-10"></div>
+      
+      <div className="relative z-20 h-screen flex flex-col">
         {/* Header */}
         <div className="pt-24 pb-8 px-6 md:px-16">
           <p className="text-gray-400 text-sm uppercase tracking-wider mb-4">Robots</p>
@@ -125,13 +139,13 @@ const RobotShowcase = () => {
                 key={robot.id}
                 className="flex-shrink-0 w-[380px] h-[500px]"
               >
-                <Card className="h-full rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 bg-white/10 backdrop-blur-md border-white/20 hover:bg-white hover:backdrop-blur-none">
+                <Card className="h-full rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 bg-white/5 backdrop-blur-xl border-white/10 hover:bg-white hover:backdrop-blur-none group">
                   {/* Image Section */}
-                  <div className="relative h-[300px] bg-gray-100/10 hover:bg-gray-100 transition-colors duration-300">
+                  <div className="relative h-[300px] bg-black/5 group-hover:bg-gray-100 transition-colors duration-500">
                     <Button
                       onClick={() => handleViewDetails(robot.id)}
                       size="sm"
-                      className="absolute top-4 left-4 z-10 bg-white/90 text-gray-900 hover:bg-white transition-all duration-300"
+                      className="absolute top-4 left-4 z-10 bg-white/90 text-gray-900 hover:bg-white transition-all duration-500"
                     >
                       View Details
                     </Button>
@@ -139,12 +153,12 @@ const RobotShowcase = () => {
                     <img
                       src={robot.image}
                       alt={robot.name}
-                      className="h-full w-full object-contain p-8"
+                      className="h-full w-full object-contain p-8 rounded-xl"
                     />
                   </div>
 
                   {/* Content Section */}
-                  <div className="relative h-[300px] bg-gray-100/10 hover:bg-gray-100 transition-colors duration-300">
+                  <div className="p-6">
                     <p className="text-sm text-white/70 hover:text-gray-500 transition-colors duration-300 mb-2 group-hover:text-gray-500">
                       {robot.category}
                     </p>
