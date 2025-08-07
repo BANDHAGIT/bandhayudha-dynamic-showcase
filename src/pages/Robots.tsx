@@ -118,51 +118,51 @@ const Robots = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background overflow-x-hidden lg:overflow-x-visible">
       <Navigation />
-      <div className="pt-16">
+      <div className="pt-16 w-full overflow-x-hidden lg:overflow-x-visible">
         {/* Hero Section */}
-        <section className="py-20 bg-gradient-hero text-white">
-          <div className="container mx-auto px-4 text-center">
-            <h1 className="text-5xl md:text-6xl font-bold mb-6">Our Robots</h1>
-            <p className="text-xl md:text-2xl max-w-3xl mx-auto leading-relaxed">
+        <section className="py-12 sm:py-16 md:py-20 bg-gradient-hero text-white w-full overflow-x-hidden lg:overflow-x-visible">
+          <div className="container mx-auto px-4 text-center w-full max-w-full lg:w-auto lg:max-w-none">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 break-words lg:break-normal">Our Robots</h1>
+            <p className="text-base sm:text-lg md:text-xl lg:text-2xl max-w-xs sm:max-w-lg md:max-w-2xl lg:max-w-3xl mx-auto leading-relaxed break-words lg:break-normal">
               Meet our championship-winning autonomous robots, engineered for excellence in competitive robotics
             </p>
           </div>
         </section>
 
         {/* Robots Showcase */}
-        <section className="py-20">
-          <div className="container mx-auto px-4">
+        <section className="py-12 sm:py-16 md:py-20 w-full overflow-x-hidden lg:overflow-x-visible">
+          <div className="container mx-auto px-4 w-full max-w-full lg:w-auto lg:max-w-none">
             {robots.map((robot, index) => (
               <div
                 key={robot.id}
                 id={`robot-${robot.id}`}
-                className="mb-32 last:mb-20"
+                className="mb-16 sm:mb-20 md:mb-24 lg:mb-32 last:mb-12 sm:last:mb-16 md:last:mb-20 w-full max-w-full overflow-x-hidden lg:overflow-x-visible lg:w-auto lg:max-w-none"
                 style={getAnimationStyle(robot.id)}
               >
-                <Card className="overflow-hidden shadow-2xl border-0 bg-gradient-to-br from-gray-50 to-white">
-                  <CardContent className="p-0">
-                    <div className={`grid lg:grid-cols-2 gap-0 min-h-[600px] ${
+                <Card className="overflow-hidden shadow-xl md:shadow-2xl border-0 bg-gradient-to-br from-gray-50 to-white w-full max-w-full lg:w-auto lg:max-w-none">
+                  <CardContent className="p-0 w-full max-w-full overflow-x-hidden lg:overflow-x-visible lg:w-auto lg:max-w-none">
+                    <div className={`grid lg:grid-cols-2 gap-0 min-h-[400px] sm:min-h-[500px] md:min-h-[600px] w-full max-w-full lg:w-auto lg:max-w-none ${
                       index % 2 === 1 ? 'lg:grid-flow-col-dense' : ''
                     }`}>
                       {/* Robot Image */}
-                      <div className={`${index % 2 === 1 ? 'lg:col-start-2' : ''}`}>
-                        <div className="relative group overflow-hidden h-[400px] lg:h-[600px] transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 cursor-pointer"
+                      <div className={`${index % 2 === 1 ? 'lg:col-start-2' : ''} w-full max-w-full overflow-hidden lg:w-auto lg:max-w-none lg:overflow-visible`}>
+                        <div className="relative group overflow-hidden h-[300px] sm:h-[350px] md:h-[400px] lg:h-[600px] transition-all duration-300 hover:shadow-xl lg:hover:shadow-2xl hover:-translate-y-1 lg:hover:-translate-y-2 cursor-pointer w-full max-w-full lg:w-auto lg:max-w-none"
                              onClick={() => setZoomedRobot(robot)}>
                           <img
                             src={robot.image}
                             alt={robot.name}
-                            className={`object-cover h-full w-full transform ${robot.scale} translate-y-${robot.y_position} transition-transform duration-300 group-hover:scale-105`}
+                            className={`object-cover h-full w-full transform ${robot.scale} translate-y-${robot.y_position} transition-transform duration-300 group-hover:scale-105 max-w-full lg:max-w-none`}
                           />
                           {/* Badge positioned absolute */}
-                          <Badge className="absolute top-4 left-4 bg-tech-blue text-white z-10">
+                          <Badge className="absolute top-3 left-3 sm:top-4 sm:left-4 bg-tech-blue text-white z-10 text-xs sm:text-sm">
                             {robot.category}
                           </Badge>
                           {/* Zoom indicator */}
                           <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                            <div className="bg-white/20 backdrop-blur-sm rounded-full p-3">
-                              <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <div className="bg-white/20 backdrop-blur-sm rounded-full p-2 sm:p-3">
+                              <svg className="w-6 h-6 sm:w-8 sm:h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
                               </svg>
                             </div>
@@ -173,42 +173,42 @@ const Robots = () => {
                       {/* Robot Info */}
                       <div className={`${index % 2 === 1 ? 
                         'lg:col-start-1 lg:row-start-1' : ''
-                      } p-8 lg:p-12 flex flex-col justify-center`}>
-                        <div className="space-y-6">
-                          <div>
-                            <h3 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+                      } p-4 sm:p-6 md:p-8 lg:p-12 flex flex-col justify-center w-full max-w-full overflow-x-hidden lg:w-auto lg:max-w-none lg:overflow-x-visible`}>
+                        <div className="space-y-4 sm:space-y-5 md:space-y-6 w-full max-w-full lg:w-auto lg:max-w-none">
+                          <div className="w-full max-w-full lg:w-auto lg:max-w-none">
+                            <h3 className="text-2xl sm:text-3xl md:text-3xl lg:text-4xl font-bold text-foreground mb-3 sm:mb-4 break-words lg:break-normal">
                               {robot.name}
                             </h3>
-                            <p className="text-lg text-muted-foreground leading-relaxed">
+                            <p className="text-sm sm:text-base lg:text-lg text-muted-foreground leading-relaxed break-words lg:break-normal">
                               {robot.description}
                             </p>
                           </div>
 
                           {/* Technical Specifications */}
-                          <div>
-                            <h4 className="text-xl font-bold text-foreground mb-4 flex items-center">
-                              <Cpu className="h-5 w-5 text-tech-blue mr-2" />
-                              Technical Specifications
+                          <div className="w-full max-w-full lg:w-auto lg:max-w-none">
+                            <h4 className="text-lg sm:text-xl font-bold text-foreground mb-3 sm:mb-4 flex items-center break-words lg:break-normal">
+                              <Cpu className="h-4 w-4 sm:h-5 sm:w-5 text-tech-blue mr-2 flex-shrink-0" />
+                              <span>Technical Specifications</span>
                             </h4>
-                            <div className="grid grid-cols-2 gap-3">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3 w-full max-w-full lg:w-auto lg:max-w-none">
                               {robot.specs.map((spec, specIndex) => (
-                                <div key={specIndex} className="flex items-center space-x-2">
-                                  <div className="w-2 h-2 bg-tech-blue rounded-full"></div>
-                                  <span className="text-muted-foreground">{spec}</span>
+                                <div key={specIndex} className="flex items-start lg:items-center space-x-2 w-full max-w-full overflow-hidden lg:overflow-visible lg:w-auto lg:max-w-none">
+                                  <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-tech-blue rounded-full flex-shrink-0 mt-2 lg:mt-0"></div>
+                                  <span className="text-xs sm:text-sm lg:text-base text-muted-foreground break-words lg:break-normal flex-1 min-w-0 lg:min-w-auto">{spec}</span>
                                 </div>
                               ))}
                             </div>
                           </div>
 
                           {/* Achievements */}
-                          <div>
-                            <h4 className="text-xl font-bold text-foreground mb-4 flex items-center">
-                              <Target className="h-5 w-5 text-orange-500 mr-2" />
-                              Achievements
+                          <div className="w-full max-w-full lg:w-auto lg:max-w-none">
+                            <h4 className="text-lg sm:text-xl font-bold text-foreground mb-3 sm:mb-4 flex items-center break-words lg:break-normal">
+                              <Target className="h-4 w-4 sm:h-5 sm:w-5 text-orange-500 mr-2 flex-shrink-0" />
+                              <span>Achievements</span>
                             </h4>
-                            <div className="flex flex-wrap gap-2">
+                            <div className="flex flex-wrap gap-2 w-full max-w-full lg:w-auto lg:max-w-none">
                               {robot.achievements.map((achievement, achIndex) => (
-                                <Badge key={achIndex} className="bg-orange-100 text-orange-800 hover:bg-orange-200">
+                                <Badge key={achIndex} className="bg-orange-100 text-orange-800 hover:bg-orange-200 text-xs sm:text-sm break-words lg:break-normal">
                                   {achievement}
                                 </Badge>
                               ))}
@@ -216,13 +216,16 @@ const Robots = () => {
                           </div>
 
                           {/* Action Button */}
-                          <Button 
-                            className="w-fit bg-tech-blue hover:bg-tech-blue/90 text-white group"
-                            onClick={() => setZoomedRobot(robot)}
-                          >
-                            Learn More About This Robot
-                            <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                          </Button>
+                          <div className="w-full max-w-full lg:w-auto lg:max-w-none">
+                            <Button 
+                              className="w-fit bg-tech-blue hover:bg-tech-blue/90 text-white group text-sm sm:text-base mt-2 sm:mt-4"
+                              onClick={() => setZoomedRobot(robot)}
+                            >
+                              <span className="hidden sm:inline">Learn More About This Robot</span>
+                              <span className="sm:hidden">Learn More</span>
+                              <ArrowRight className="ml-2 h-3 w-3 sm:h-4 sm:w-4 group-hover:translate-x-1 transition-transform flex-shrink-0" />
+                            </Button>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -234,35 +237,35 @@ const Robots = () => {
             {/* Zoom Modal */}
             {zoomedRobot && (
               <div 
-                className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4"
+                className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-2 sm:p-4"
                 onClick={() => setZoomedRobot(null)}
               >
-                <div className="relative max-w-4xl max-h-[90vh] w-full">
+                <div className="relative max-w-xs sm:max-w-md md:max-w-2xl lg:max-w-4xl max-h-[85vh] sm:max-h-[90vh] w-full">
                   <button
                     onClick={() => setZoomedRobot(null)}
-                    className="absolute -top-10 -right-2 text-white hover:text-gray-300 transition-colors z-10 bg-black/50 rounded-full p-2"
+                    className="absolute -top-8 sm:-top-10 -right-1 sm:-right-2 text-white hover:text-gray-300 transition-colors z-10 bg-black/50 rounded-full p-1.5 sm:p-2"
                   >
-                    <X className="w-6 h-6" />
+                    <X className="w-5 h-5 sm:w-6 sm:h-6" />
                   </button>
                   
                   {/* Zoomed image */}
-                  <div className="relative overflow-hidden rounded-2xl shadow-2xl bg-white">
+                  <div className="relative overflow-hidden rounded-xl sm:rounded-2xl shadow-2xl bg-white">
                     <img
                       src={zoomedRobot.image}
                       alt={zoomedRobot.name}
-                      className="w-auto h-auto max-w-full max-h-[70vh] object-contain"
+                      className="w-auto h-auto max-w-full max-h-[60vh] sm:max-h-[70vh] object-contain"
                       onClick={(e) => e.stopPropagation()}
                     />
                     
                     {/* Robot info overlay */}
-                    <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 to-transparent p-4">
-                      <Badge className="bg-tech-blue text-white mb-2 text-sm">
+                    <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 to-transparent p-3 sm:p-4">
+                      <Badge className="bg-tech-blue text-white mb-2 text-xs sm:text-sm">
                         {zoomedRobot.category}
                       </Badge>
-                      <h3 className="text-xl font-bold text-white mb-1">
+                      <h3 className="text-lg sm:text-xl font-bold text-white mb-1">
                         {zoomedRobot.name}
                       </h3>
-                      <p className="text-white/90 text-sm">
+                      <p className="text-white/90 text-xs sm:text-sm">
                         Click to view details
                       </p>
                     </div>
