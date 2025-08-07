@@ -118,7 +118,7 @@ const RobotShowcase = () => {
         <div className="pt-24 pb-8 px-6 md:px-16">
           <p className="text-gray-400 text-sm uppercase tracking-wider mb-4">Robots</p>
           <h2 className="text-4xl md:text-5xl font-bold text-white">
-            Our Championship<br />
+            Our advanced<br />
             Robot Lineup
           </h2>
         </div>
@@ -141,7 +141,7 @@ const RobotShowcase = () => {
               >
                 <Card className="h-full rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 bg-white/5 backdrop-blur-xl border-white/10 hover:bg-white hover:backdrop-blur-none group">
                   {/* Image Section */}
-                  <div className="relative h-[300px] bg-black/5 group-hover:bg-gray-100 transition-colors duration-500">
+                  <div className="relative h-[300px] bg-black/5 group-hover:bg-gray-100 transition-colors duration-500 p-6">
                     <Button
                       onClick={() => handleViewDetails(robot.id)}
                       size="sm"
@@ -150,24 +150,26 @@ const RobotShowcase = () => {
                       View Details
                     </Button>
 
-                    <img
-                      src={robot.image}
-                      alt={robot.name}
-                      className="h-full w-full object-contain p-8 rounded-xl"
-                    />
+                    <div className="w-full h-full rounded-xl overflow-hidden">
+                      <img
+                        src={robot.image}
+                        alt={robot.name}
+                        className="h-full w-full object-contain"
+                      />
+                    </div>
                   </div>
 
                   {/* Content Section */}
-                  <div className="p-6">
-                    <p className="text-sm text-white/70 hover:text-gray-500 transition-colors duration-300 mb-2 group-hover:text-gray-500">
+                  <div className="p-6 group">
+                    <p className="text-sm text-white/90 group-hover:text-gray-500 transition-colors duration-500 mb-2">
                       {robot.category}
                     </p>
                     
-                    <h3 className="text-2xl font-bold text-white hover:text-gray-900 transition-colors duration-300 mb-4 group-hover:text-gray-900">
+                    <h3 className="text-2xl font-bold text-white group-hover:text-gray-900 transition-colors duration-500 mb-4">
                       {robot.series}
                     </h3>
                     
-                    <p className="text-white/80 hover:text-gray-600 transition-colors duration-300 mb-6 line-clamp-2 group-hover:text-gray-600">
+                    <p className="text-white/80 group-hover:text-gray-600 transition-colors duration-500 mb-6 line-clamp-2">
                       {robot.description}
                     </p>
 
@@ -176,7 +178,7 @@ const RobotShowcase = () => {
                         <button
                           key={model}
                           onClick={() => handleViewDetails(robot.id)}
-                          className="text-blue-300 hover:text-blue-600 transition-colors duration-300 font-medium"
+                          className="text-blue-300 group-hover:text-blue-600 transition-colors duration-500 font-medium"
                         >
                           {model}
                         </button>
@@ -186,6 +188,28 @@ const RobotShowcase = () => {
                 </Card>
               </div>
             ))}
+            
+            {/* View Full Lineup Button */}
+            <div className="flex-shrink-0 w-[300px] h-[500px] flex items-center justify-center">
+              <div className="text-center">
+                <button
+                  onClick={() => navigate('/robots')}
+                  className="w-20 h-20 bg-white/10 backdrop-blur-md border-2 border-white/20 rounded-full flex items-center justify-center mb-6 hover:bg-white hover:border-white transition-all duration-300 group"
+                >
+                  <svg 
+                    className="w-8 h-8 text-white group-hover:text-gray-900 transition-colors duration-300" 
+                    fill="none" 
+                    stroke="currentColor" 
+                    viewBox="0 0 24 24"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </button>
+                <p className="text-white text-lg font-medium">
+                  View Full Lineup
+                </p>
+              </div>
+            </div>
             
             {/* Extra padding */}
             <div className="w-16 flex-shrink-0" />
