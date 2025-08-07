@@ -83,7 +83,7 @@ const About = () => {
         </div>
       </section>
 
-      {/* DJUARA Values */}
+      {/* DJUARA Values
       <section className="py-20 bg-secondary/30">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
@@ -112,7 +112,7 @@ const About = () => {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Achievements */}
       <section className="py-20">

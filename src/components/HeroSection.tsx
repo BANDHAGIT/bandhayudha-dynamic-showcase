@@ -55,7 +55,7 @@ const HeroSection = () => {
               className="inline-flex items-center justify-center"
             >
               <Play className="mr-2 h-5 w-5" />
-              Watch Demo
+              Robot In Action
             </a>
           </Button>
         </div>
