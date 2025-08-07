@@ -137,9 +137,9 @@ const RobotShowcase = () => {
             {robots.map((robot) => (
               <div
                 key={robot.id}
-                className="flex-shrink-0 w-[min(280px,75vw)] sm:w-[min(320px,60vw)] md:w-[min(360px,45vw)] lg:w-[min(380px,35vw)] xl:w-[380px] h-[min(420px,80vh)] md:h-[min(500px,75vh)]"
+                className="flex-shrink-0 w-[380px] h-[500px]"
               >
-                <Card className="h-full rounded-xl lg:rounded-2xl overflow-hidden shadow-lg hover:shadow-xl lg:hover:shadow-2xl transition-all duration-500 bg-white/5 backdrop-blur-xl border-white/10 hover:bg-white hover:backdrop-blur-none group">
+                <Card className="h-full rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 bg-white/5 backdrop-blur-xl border-white/10 hover:bg-white hover:backdrop-blur-none group">
                   {/* Image Section */}
                   <div className="relative h-[55%] md:h-[60%] bg-black/5 group-hover:bg-gray-100 transition-colors duration-500 p-3 sm:p-4 lg:p-6">
                     <Button
