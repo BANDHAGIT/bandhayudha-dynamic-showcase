@@ -14,6 +14,24 @@ const Robots = () => {
   const robots = [
     {
       id: 1,
+      name: 'SLAMET',
+      category: 'ABURobocon 2025',
+      image: '/bandhayudha-photo/Robots/R1_25.JPG',
+      scale: 'scale-100',
+      y_position: '6',
+      description: 'SLAMET is a shooter robot designed for the ABU Robocon 2025 competition. It features a jetson orin nano for advanced communication protocol, Triple communication fallback mechanism, with unique dribbling mechanism.',
+      specs: [
+        'NVIDIA Jetson Orin Nano',
+        'STM32H7 for Control',
+        'Dual Band WiFi Communication',
+        'Bluetooth Communication',
+      ],
+      achievements: [
+        'Regional 3rd Place',
+      ]
+    },
+    {
+      id: 2,
       name: 'ULO',
       category: 'ABURobocon 2024',
       image: '/bandhayudha-photo/Robots/R2_24.png',
@@ -31,7 +49,7 @@ const Robots = () => {
       ]
     },
     {
-      id: 2,
+      id: 3,
       name: 'NOGO',
       category: 'ABURobocon 2024',
       image: '/bandhayudha-photo/Robots/R1_24.png',
