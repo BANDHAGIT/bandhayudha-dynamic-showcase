@@ -242,29 +242,6 @@ const Robots = () => {
                 </div>
               </div>
             )}
-
-            {/* Innovation Highlights */}
-            <div className="mt-20 text-center">
-              <h3 className="text-3xl md:text-4xl font-bold text-foreground mb-8">
-                Innovation Highlights
-              </h3>
-              <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-                {innovationHighlights.map((highlight) => {
-                  const IconComponent = highlight.icon;
-                  return (
-                    <Card key={highlight.id} className="p-6 shadow-elevation-medium hover:shadow-elevation-high transition-all duration-300">
-                      <CardContent className="p-0 text-center">
-                        <div className={`${highlight.bgColor} w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4`}>
-                          <IconComponent className={`h-8 w-8 ${highlight.iconColor}`} />
-                        </div>
-                        <h4 className="text-xl font-bold text-foreground mb-2">{highlight.title}</h4>
-                        <p className="text-muted-foreground">{highlight.description}</p>
-                      </CardContent>
-                    </Card>
-                  );
-                })}
-              </div>
-            </div>
           </div>
         </section>
       </div>
