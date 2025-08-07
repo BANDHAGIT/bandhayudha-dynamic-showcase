@@ -10,58 +10,32 @@ const RobotShowcase = () => {
   const robots = [
     {
       id: 1,
+      name: 'Slamet',
+      category: 'Basketball Shooting Robot',
+      series: 'BASKETBALL-SERIES',
+      image: '/bandhayudha-photo/Robots/R1_25.JPG',
+      description: 'Next generation competitive robot for ABU Robocon 2025',
+      models: ['SL-25']
+    },
+    {
+      id: 2,
       name: 'ULO',
-      category: 'Competition Robot',
-      series: 'U-SERIES',
-      image: '/bandhayudha-photo/dc5ff86c-6bdc-47ae-92e3-7e9a69fa79cd.png',
+      category: 'Silo Robot',
+      series: 'HARVEST-SERIES',
+      image: '/bandhayudha-photo/Robots/R2_24.png',
       description: 'Autonomous robot with advanced navigation for ABU Robocon 2024',
       models: ['ULO24']
     },
     {
-      id: 2,
+      id: 3,
       name: 'NOGO',
-      category: 'Precision Robot',
-      series: 'N-SERIES',
-      image: '/bandhayudha-photo/75965119-720c-44cf-b446-0099b94bdef4.png',
+      category: 'Paddy Rice Robot',
+      series: 'HARVEST-SERIES',
+      image: '/bandhayudha-photo/Robots/R1_24.png',
       description: 'Semi-autonomous precision robot for complex field challenges',
       models: ['NOGO24']
     },
-    {
-      id: 3,
-      name: 'Future Robot',
-      category: 'Next Generation',
-      series: 'F-SERIES',
-      image: '/bandhayudha-photo/Robot1_ABU25.JPG',
-      description: 'Next generation competitive robot for ABU Robocon 2025',
-      models: ['FR2025']
-    },
-    {
-      id: 4,
-      name: 'Future Robot',
-      category: 'Next Generation',
-      series: 'F-SERIES',
-      image: '/bandhayudha-photo/Robot1_ABU25.JPG',
-      description: 'Next generation competitive robot for ABU Robocon 2025',
-      models: ['FR2025']
-    },
-    {
-      id: 5,
-      name: 'Future Robot',
-      category: 'Next Generation',
-      series: 'F-SERIES',
-      image: '/bandhayudha-photo/Robot1_ABU25.JPG',
-      description: 'Next generation competitive robot for ABU Robocon 2025',
-      models: ['FR2025']
-    },
-    {
-      id: 6,
-      name: 'Future Robot',
-      category: 'Next Generation',
-      series: 'F-SERIES',
-      image: '/bandhayudha-photo/Robot1_ABU25.JPG',
-      description: 'Next generation competitive robot for ABU Robocon 2025',
-      models: ['FR2025']
-    }
+
   ];
 
   useEffect(() => {

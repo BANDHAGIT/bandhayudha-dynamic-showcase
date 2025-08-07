@@ -14,7 +14,7 @@ const History = () => {
       icon: <Globe className="h-6 w-6" />,
       media: {
         type: 'image',
-        src: '/images/2025-international-sponsor.jpg',
+        src: '/bandhayudha-photo/Team/Team_2025.JPG',
         alt: 'International sponsorship announcement',
         scale: 1.0 // Scale 100% (ukuran normal)
       }
@@ -40,7 +40,7 @@ const History = () => {
       icon: <Award className="h-6 w-6" />,
       media: {
         type: 'image',
-        src: '/bandhayudha-photo/2023-victory.png',
+        src: '/bandhayudha-photo/Team/Team_2023.png',
         alt: 'Victory celebration and award ceremony',
         scale: 1.0 // Scale 100% (ukuran normal)
       }
