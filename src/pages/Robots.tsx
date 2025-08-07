@@ -108,14 +108,14 @@ const Robots = () => {
         {/* Main Robots Section - exactly like the old RobotSection */}
         <section id="robot" className="py-20 bg-background">
           <div className="container mx-auto px-4">
-            <div className="text-center mb-16">
+            {/* <div className="text-center mb-16">
               <h2 className="text-4xl md:text-6xl font-bold text-foreground mb-4">
                 Our Robots
               </h2>
               <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
                 Meet our championship-winning autonomous robots, engineered for excellence in competitive robotics
               </p>
-            </div>
+            </div> */}
 
             <div className="space-y-20">
               {robots.map((robot, index) => (

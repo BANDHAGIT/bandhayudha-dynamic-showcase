@@ -118,16 +118,16 @@ const RobotShowcase = () => {
         <div className="pt-24 pb-8 px-6 md:px-16">
           <p className="text-gray-400 text-sm uppercase tracking-wider mb-4">Robots</p>
           <h2 className="text-4xl md:text-5xl font-bold text-white">
-            Our advanced<br />
+            Our Championship<br />
             Robot Lineup
           </h2>
         </div>
 
         {/* Cards Container */}
-        <div className="flex-1 px-6 md:px-16 pb-16 overflow-hidden">
+        <div className="flex-1 pb-16 overflow-hidden relative">
           <div 
             ref={scrollRef}
-            className="flex gap-8 h-full items-center overflow-x-auto"
+            className="flex gap-3 sm:gap-4 lg:gap-6 xl:gap-8 h-full items-center overflow-x-auto px-4 sm:px-6 lg:px-12 xl:px-16 pb-4"
             style={{ 
               scrollbarWidth: 'none', 
               msOverflowStyle: 'none',
@@ -137,20 +137,20 @@ const RobotShowcase = () => {
             {robots.map((robot) => (
               <div
                 key={robot.id}
-                className="flex-shrink-0 w-[380px] h-[500px]"
+                className="flex-shrink-0 w-[min(280px,75vw)] sm:w-[min(320px,60vw)] md:w-[min(360px,45vw)] lg:w-[min(380px,35vw)] xl:w-[380px] h-[min(420px,80vh)] md:h-[min(500px,75vh)]"
               >
-                <Card className="h-full rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 bg-white/5 backdrop-blur-xl border-white/10 hover:bg-white hover:backdrop-blur-none group">
+                <Card className="h-full rounded-xl lg:rounded-2xl overflow-hidden shadow-lg hover:shadow-xl lg:hover:shadow-2xl transition-all duration-500 bg-white/5 backdrop-blur-xl border-white/10 hover:bg-white hover:backdrop-blur-none group">
                   {/* Image Section */}
-                  <div className="relative h-[300px] bg-black/5 group-hover:bg-gray-100 transition-colors duration-500 p-6">
+                  <div className="relative h-[55%] md:h-[60%] bg-black/5 group-hover:bg-gray-100 transition-colors duration-500 p-3 sm:p-4 lg:p-6">
                     <Button
                       onClick={() => handleViewDetails(robot.id)}
                       size="sm"
-                      className="absolute top-4 left-4 z-10 bg-white/90 text-gray-900 hover:bg-white transition-all duration-500"
+                      className="absolute top-2 left-2 md:top-3 md:left-3 lg:top-4 lg:left-4 z-10 bg-white/90 text-gray-900 hover:bg-white transition-all duration-500 text-xs sm:text-sm px-2 sm:px-3"
                     >
                       View Details
                     </Button>
 
-                    <div className="w-full h-full rounded-xl overflow-hidden">
+                    <div className="w-full h-full rounded-lg lg:rounded-xl overflow-hidden">
                       <img
                         src={robot.image}
                         alt={robot.name}
@@ -160,25 +160,25 @@ const RobotShowcase = () => {
                   </div>
 
                   {/* Content Section */}
-                  <div className="p-6 group">
-                    <p className="text-sm text-white/90 group-hover:text-gray-500 transition-colors duration-500 mb-2">
+                  <div className="p-3 sm:p-4 lg:p-6 group h-[45%] md:h-[40%] flex flex-col">
+                    <p className="text-xs sm:text-sm text-white/90 group-hover:text-gray-500 transition-colors duration-500 mb-1.5 sm:mb-2">
                       {robot.category}
                     </p>
                     
-                    <h3 className="text-2xl font-bold text-white group-hover:text-gray-900 transition-colors duration-500 mb-4">
+                    <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-white group-hover:text-gray-900 transition-colors duration-500 mb-2 sm:mb-3 lg:mb-4">
                       {robot.series}
                     </h3>
                     
-                    <p className="text-white/80 group-hover:text-gray-600 transition-colors duration-500 mb-6 line-clamp-2">
+                    <p className="text-xs sm:text-sm lg:text-base text-white/80 group-hover:text-gray-600 transition-colors duration-500 mb-3 sm:mb-4 lg:mb-6 line-clamp-2 flex-1">
                       {robot.description}
                     </p>
 
-                    <div className="flex flex-wrap gap-4">
+                    <div className="flex flex-wrap gap-1.5 sm:gap-2 lg:gap-4">
                       {robot.models.map((model) => (
                         <button
                           key={model}
                           onClick={() => handleViewDetails(robot.id)}
-                          className="text-blue-300 group-hover:text-blue-600 transition-colors duration-500 font-medium"
+                          className="text-xs sm:text-sm lg:text-base text-blue-300 group-hover:text-blue-600 transition-colors duration-500 font-medium"
                         >
                           {model}
                         </button>
@@ -190,14 +190,14 @@ const RobotShowcase = () => {
             ))}
             
             {/* View Full Lineup Button */}
-            <div className="flex-shrink-0 w-[300px] h-[500px] flex items-center justify-center">
+            <div className="flex-shrink-0 w-[min(240px,60vw)] sm:w-[min(280px,50vw)] lg:w-[300px] h-[min(420px,80vh)] md:h-[min(500px,75vh)] flex items-center justify-center">
               <div className="text-center">
                 <button
                   onClick={() => navigate('/robots')}
-                  className="w-20 h-20 bg-white/10 backdrop-blur-md border-2 border-white/20 rounded-full flex items-center justify-center mb-6 hover:bg-white hover:border-white transition-all duration-300 group"
+                  className="w-12 h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20 bg-white/10 backdrop-blur-md border-2 border-white/20 rounded-full flex items-center justify-center mb-3 sm:mb-4 lg:mb-6 hover:bg-white hover:border-white transition-all duration-300 group"
                 >
                   <svg 
-                    className="w-8 h-8 text-white group-hover:text-gray-900 transition-colors duration-300" 
+                    className="w-5 h-5 sm:w-6 sm:h-6 lg:w-8 lg:h-8 text-white group-hover:text-gray-900 transition-colors duration-300" 
                     fill="none" 
                     stroke="currentColor" 
                     viewBox="0 0 24 24"
@@ -205,14 +205,25 @@ const RobotShowcase = () => {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                   </svg>
                 </button>
-                <p className="text-white text-lg font-medium">
+                <p className="text-white text-sm sm:text-base lg:text-lg font-medium">
                   View Full Lineup
                 </p>
               </div>
             </div>
             
-            {/* Extra padding */}
-            <div className="w-16 flex-shrink-0" />
+            {/* Extra padding for last card */}
+            <div className="w-2 sm:w-4 lg:w-8 flex-shrink-0" />
+          </div>
+          
+          {/* Mobile scroll hint */}
+          <div className="md:hidden absolute bottom-16 sm:bottom-20 left-1/2 transform -translate-x-1/2 text-white/60 text-xs sm:text-sm flex items-center gap-2">
+            <svg className="w-3 h-3 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            </svg>
+            Swipe to explore
+            <svg className="w-3 h-3 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
           </div>
         </div>
 
