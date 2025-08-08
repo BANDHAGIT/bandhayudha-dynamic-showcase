@@ -404,7 +404,7 @@ const Members = () => {
     <div className="min-h-screen">
       <Navigation />
       
-      {/* Year Timeline Navigation */}
+      {/* Year Timeline Navigation - Desktop (Right Side) */}
       <div className="fixed right-4 top-1/2 -translate-y-1/2 z-50 hidden lg:block">
         <div className="flex flex-col items-center space-y-2">
           {years.map((year, index) => (
@@ -427,7 +427,33 @@ const Members = () => {
         </div>
       </div>
 
-      <div className="pt-16">
+      {/* Year Timeline Navigation - Mobile (Bottom) */}
+      <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 lg:hidden">
+        <div className="bg-white/90 backdrop-blur-md rounded-full px-4 py-2 shadow-lg border border-gray-200">
+          <div className="flex items-center space-x-3">
+            {years.map((year, index) => (
+              <React.Fragment key={year}>
+                <button
+                  onClick={() => setSelectedYear(year)}
+                  className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold transition-all duration-300 ${
+                    selectedYear === year
+                      ? 'bg-tech-blue text-white shadow-md scale-110' 
+                      : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                  }`}
+                >
+                  {year}
+                </button>
+                {index < years.length - 1 && (
+                  <div className="w-2 h-0.5 bg-gray-300" />
+                )}
+              </React.Fragment>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Add padding bottom for mobile to prevent content being hidden behind navigation */}
+      <div className="pt-16 pb-20 lg:pb-0">
         {/* Hero Section */}
         <section className="py-20 bg-gradient-hero text-white">
           <div className="container mx-auto px-4 text-center">
