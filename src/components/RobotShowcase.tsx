@@ -35,7 +35,6 @@ const RobotShowcase = () => {
       description: 'Semi-autonomous precision robot for complex field challenges',
       models: ['NOGO24']
     },
-
   ];
 
   useEffect(() => {
@@ -97,7 +96,7 @@ const RobotShowcase = () => {
           </h2>
         </div>
 
-        {/* Cards Container */}
+        {/* Cards Container - FIXED RESPONSIVE ISSUE */}
         <div className="flex-1 pb-16 overflow-hidden relative">
           <div 
             ref={scrollRef}
@@ -111,7 +110,9 @@ const RobotShowcase = () => {
             {robots.map((robot) => (
               <div
                 key={robot.id}
-                className="flex-shrink-0 w-[380px] h-[500px]"
+                // FIXED: Changed from fixed w-[380px] h-[500px] to responsive sizing
+                // Mobile: smaller cards that fit viewport, Desktop: larger cards
+                className="flex-shrink-0 w-[280px] sm:w-[320px] md:w-[360px] lg:w-[380px] h-[400px] sm:h-[450px] md:h-[480px] lg:h-[500px]"
               >
                 <Card className="h-full rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 bg-white/5 backdrop-blur-xl border-white/10 hover:bg-white hover:backdrop-blur-none group">
                   {/* Image Section */}
@@ -134,16 +135,18 @@ const RobotShowcase = () => {
                   </div>
 
                   {/* Content Section */}
-                  <div className="p-3 sm:p-4 lg:p-6 group h-[45%] md:h-[40%] flex flex-col">
+                  <div className="p-3 sm:p-4 lg:p-6 h-[45%] md:h-[40%] flex flex-col">
                     <p className="text-xs sm:text-sm text-white/90 group-hover:text-gray-500 transition-colors duration-500 mb-1.5 sm:mb-2">
                       {robot.category}
                     </p>
                     
-                    <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-white group-hover:text-gray-900 transition-colors duration-500 mb-2 sm:mb-3 lg:mb-4">
+                    {/* FIXED: Responsive text sizing for better mobile display */}
+                    <h3 className="text-base sm:text-lg lg:text-xl xl:text-2xl font-bold text-white group-hover:text-gray-900 transition-colors duration-500 mb-2 sm:mb-3 lg:mb-4 leading-tight">
                       {robot.series}
                     </h3>
                     
-                    <p className="text-xs sm:text-sm lg:text-base text-white/80 group-hover:text-gray-600 transition-colors duration-500 mb-3 sm:mb-4 lg:mb-6 line-clamp-2 flex-1">
+                    {/* FIXED: Better text sizing and spacing for mobile */}
+                    <p className="text-xs sm:text-sm lg:text-base text-white/80 group-hover:text-gray-600 transition-colors duration-500 mb-3 sm:mb-4 lg:mb-6 line-clamp-2 flex-1 leading-relaxed">
                       {robot.description}
                     </p>
 
@@ -163,8 +166,8 @@ const RobotShowcase = () => {
               </div>
             ))}
             
-            {/* View Full Lineup Button */}
-            <div className="flex-shrink-0 w-[min(240px,60vw)] sm:w-[min(280px,50vw)] lg:w-[300px] h-[min(420px,80vh)] md:h-[min(500px,75vh)] flex items-center justify-center">
+            {/* View Full Lineup Button - FIXED RESPONSIVE */}
+            <div className="flex-shrink-0 w-[200px] sm:w-[240px] md:w-[280px] lg:w-[300px] h-[400px] sm:h-[450px] md:h-[480px] lg:h-[500px] flex items-center justify-center">
               <div className="text-center">
                 <button
                   onClick={() => navigate('/robots')}
