@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { ExternalLink, Calendar, Search } from 'lucide-react';
+import { ExternalLink, Calendar, Search, BookOpen } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 
@@ -173,6 +174,127 @@ const News: React.FC = () => {
             <Button className="px-8 py-3 bg-tech-blue text-white font-medium rounded-lg hover:bg-tech-blue/90 transition-colors duration-200 shadow-lg hover:shadow-xl">
               Load More Articles
             </Button>
+          </div>
+
+          {/* Blog Posts Section */}
+          <div className="mt-20 pt-12 border-t border-border/40">
+            <div className="text-center mb-12">
+              <h3 className="text-3xl font-bold text-foreground mb-4">Blog Tim Bandhayudha</h3>
+              <p className="text-muted-foreground text-lg max-w-3xl mx-auto">
+                Baca cerita mendalam, insight, dan pengalaman langsung dari Tim Bandhayudha
+              </p>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto mb-8">
+              {/* Featured Blog Post 1 */}
+              <Card className="group overflow-hidden border border-border/40 hover:border-tech-blue/50 transition-all duration-300 hover:shadow-lg hover:-translate-y-1 bg-background/80 backdrop-blur-sm">
+                <div className="relative overflow-hidden">
+                  <img 
+                    src="https://undip.ac.id/wp-content/uploads/2025/07/DSC04042-edit.jpg"
+                    alt="Robot Basket Bandhayudha"
+                    className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute top-4 left-4">
+                    <span className="inline-block px-3 py-1 text-xs font-medium text-white bg-tech-blue rounded-md">
+                      Featured
+                    </span>
+                  </div>
+                </div>
+                
+                <CardContent className="p-6">
+                  <div className="mb-3">
+                    <span className="inline-block px-2 py-1 text-xs font-medium text-tech-blue bg-tech-blue/10 rounded-md">
+                      Teknologi
+                    </span>
+                  </div>
+                  
+                  <h3 className="text-lg font-semibold text-foreground mb-3 leading-tight group-hover:text-tech-blue transition-colors duration-200 line-clamp-2">
+                    Inovasi Robot Basket Bandhayudha: Terobosan Teknologi Robotika Indonesia 2025
+                  </h3>
+                  
+                  <p className="text-muted-foreground text-sm mb-4 leading-relaxed line-clamp-3">
+                    Mengupas tuntas perjalanan Tim Bandhayudha dalam mengembangkan robot basket pertama di Indonesia dengan teknologi AI dan computer vision.
+                  </p>
+                  
+                  <div className="flex items-center justify-between text-xs text-muted-foreground mb-4">
+                    <div className="flex items-center space-x-1">
+                      <Calendar className="w-3 h-3" />
+                      <span>Agustus 5, 2025</span>
+                    </div>
+                    <div className="flex items-center space-x-1">
+                      <BookOpen className="w-3 h-3" />
+                      <span>12 menit baca</span>
+                    </div>
+                  </div>
+                  
+                  <Link 
+                    to="/blog/inovasi-robot-basket-bandhayudha-2025"
+                    className="inline-flex items-center text-tech-blue hover:text-tech-blue/80 font-medium text-sm transition-colors duration-200"
+                  >
+                    <span>Baca Selengkapnya</span>
+                    <BookOpen className="w-4 h-4 ml-2" />
+                  </Link>
+                </CardContent>
+              </Card>
+
+              {/* Featured Blog Post 2 */}
+              <Card className="group overflow-hidden border border-border/40 hover:border-tech-blue/50 transition-all duration-300 hover:shadow-lg hover:-translate-y-1 bg-background/80 backdrop-blur-sm">
+                <div className="relative overflow-hidden">
+                  <img 
+                    src="https://undip.ac.id/wp-content/uploads/2023/07/Tim-Bandhayudha-Universitas-Diponegoro-Berhasil-Meraih-Juara-3-Tingkat-Nasional-dan-Penghargaan-Desain-Terbaik-pada-Ajang-Kontes-Robot-Indonesia-KRI-2023-1.jpg"
+                    alt="KRI 2023 Bandhayudha"
+                    className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                </div>
+                
+                <CardContent className="p-6">
+                  <div className="mb-3">
+                    <span className="inline-block px-2 py-1 text-xs font-medium text-tech-blue bg-tech-blue/10 rounded-md">
+                      Kompetisi
+                    </span>
+                  </div>
+                  
+                  <h3 className="text-lg font-semibold text-foreground mb-3 leading-tight group-hover:text-tech-blue transition-colors duration-200 line-clamp-2">
+                    Perjalanan Menuju Podium: Cerita di Balik Juara 3 KRI 2023
+                  </h3>
+                  
+                  <p className="text-muted-foreground text-sm mb-4 leading-relaxed line-clamp-3">
+                    Mengintip perjuangan Tim Bandhayudha dalam meraih Juara 3 dan Best Design Award di Kontes Robot Indonesia 2023.
+                  </p>
+                  
+                  <div className="flex items-center justify-between text-xs text-muted-foreground mb-4">
+                    <div className="flex items-center space-x-1">
+                      <Calendar className="w-3 h-3" />
+                      <span>Juli 15, 2023</span>
+                    </div>
+                    <div className="flex items-center space-x-1">
+                      <BookOpen className="w-3 h-3" />
+                      <span>15 menit baca</span>
+                    </div>
+                  </div>
+                  
+                  <Link 
+                    to="/blog/perjalanan-tim-bandhayudha-kri-2023"
+                    className="inline-flex items-center text-tech-blue hover:text-tech-blue/80 font-medium text-sm transition-colors duration-200"
+                  >
+                    <span>Baca Selengkapnya</span>
+                    <BookOpen className="w-4 h-4 ml-2" />
+                  </Link>
+                </CardContent>
+              </Card>
+            </div>
+
+            <div className="text-center">
+              <p className="text-muted-foreground text-sm mb-4">
+                Ingin membaca lebih banyak cerita dan insight dari Tim Bandhayudha?
+              </p>
+              <Button 
+                variant="outline" 
+                className="px-6 py-2 border-tech-blue text-tech-blue hover:bg-tech-blue hover:text-white transition-colors duration-200"
+              >
+                Lihat Semua Blog Posts
+              </Button>
+            </div>
           </div>
 
           {/* News Sources */}
