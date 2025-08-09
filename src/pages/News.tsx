@@ -15,6 +15,10 @@ interface NewsArticle {
   imageUrl: string;
   sourceUrl: string;
   source: string;
+  type?: 'external' | 'blog';
+  blogId?: string;
+  readTime?: string;
+  featured?: boolean;
 }
 
 const newsArticles: NewsArticle[] = [
@@ -25,7 +29,8 @@ const newsArticles: NewsArticle[] = [
     date: "Juli 22, 2025",
     imageUrl: "https://undip.ac.id/wp-content/uploads/2025/07/DSC04042-edit.jpg",
     sourceUrl: "https://undip.ac.id/post/49765/tim-bandhayudha-undip-juara-ciptakan-robot-basket-pertama-di-indonesia-dengan-mekanisme-dribble-shooting.html",
-    source: "UNDIP Official"
+    source: "UNDIP Official",
+    type: "external"
   },
   {
     id: 2,
@@ -34,7 +39,8 @@ const newsArticles: NewsArticle[] = [
     date: "Juli 6, 2025",
     imageUrl: "https://undip.ac.id/wp-content/uploads/2025/07/Picture1.webp",
     sourceUrl: "https://undip.ac.id/post/49297/main-basket-lawan-robot-robot-buatan-undip-dapat-bikin-panik-pemain-basket-asli-lho.html",
-    source: "UNDIP Official"
+    source: "UNDIP Official",
+    type: "external"
   },
   {
     id: 3,
@@ -43,7 +49,8 @@ const newsArticles: NewsArticle[] = [
     date: "Juli 4, 2023",
     imageUrl: "https://undip.ac.id/wp-content/uploads/2023/07/Tim-Bandhayudha-Universitas-Diponegoro-Berhasil-Meraih-Juara-3-Tingkat-Nasional-dan-Penghargaan-Desain-Terbaik-pada-Ajang-Kontes-Robot-Indonesia-KRI-2023-1.jpg",
     sourceUrl: "https://undip.ac.id/post/29853/tim-bandhayudha-universitas-diponegoro-berhasil-meraih-juara-3-tingkat-nasional-dan-penghargaan-desain-terbaik-pada-ajang-kontes-robot-indonesia-kri-2023.html",
-    source: "UNDIP Official"
+    source: "UNDIP Official",
+    type: "external"
   },
   {
     id: 4,
@@ -52,7 +59,34 @@ const newsArticles: NewsArticle[] = [
     date: "Juni 5, 2024",
     imageUrl: "https://ft.undip.ac.id/wp-content/uploads/WhatsApp-Image-2024-06-13-at-18.24.30-980x551.jpeg",
     sourceUrl: "https://ft.undip.ac.id/rancang-desain-robot-kompleks-dan-elegan-tim-bandhayudha-ft-undip-berhasil-raih-juara-3-dan-penghargaan-desain-terbaik-di-seleksi-wilayah-ii-krai-2024/",
-    source: "FT UNDIP"
+    source: "FT UNDIP",
+    type: "external"
+  },
+  {
+    id: 5,
+    title: "Inovasi Robot Basket Bandhayudha: Terobosan Teknologi Robotika Indonesia 2025",
+    description: "Mengupas tuntas perjalanan Tim Bandhayudha dalam mengembangkan robot basket pertama di Indonesia dengan teknologi AI dan computer vision.",
+    date: "Agustus 5, 2025",
+    imageUrl: "https://undip.ac.id/wp-content/uploads/2025/07/DSC04042-edit.jpg",
+    sourceUrl: "",
+    source: "Tim Editorial Bandhayudha",
+    type: "blog",
+    blogId: "inovasi-robot-basket-bandhayudha-2025",
+    readTime: "12 menit",
+    featured: true
+  },
+  {
+    id: 6,
+    title: "Perjalanan Menuju Podium: Cerita di Balik Juara 3 KRI 2023",
+    description: "Mengintip perjuangan Tim Bandhayudha dalam meraih Juara 3 dan Best Design Award di Kontes Robot Indonesia 2023.",
+    date: "Juli 15, 2023",
+    imageUrl: "https://undip.ac.id/wp-content/uploads/2023/07/Tim-Bandhayudha-Universitas-Diponegoro-Berhasil-Meraih-Juara-3-Tingkat-Nasional-dan-Penghargaan-Desain-Terbaik-pada-Ajang-Kontes-Robot-Indonesia-KRI-2023-1.jpg",
+    sourceUrl: "",
+    source: "Redaksi Bandhayudha",
+    type: "blog",
+    blogId: "perjalanan-tim-bandhayudha-kri-2023",
+    readTime: "15 menit",
+    featured: true
   }
 ];
 
@@ -73,6 +107,13 @@ const NewsCard: React.FC<{ article: NewsArticle; index?: number }> = ({ article,
           }}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+        {article.featured && (
+          <div className="absolute top-4 left-4">
+            <span className="inline-block px-3 py-1 text-xs font-medium text-white bg-tech-blue rounded-md">
+              Featured
+            </span>
+          </div>
+        )}
       </div>
       
       <CardContent className="p-6">
@@ -91,20 +132,38 @@ const NewsCard: React.FC<{ article: NewsArticle; index?: number }> = ({ article,
         </p>
         
         <div className="flex items-center justify-between text-xs text-muted-foreground">
-          <div className="flex items-center space-x-1">
-            <Calendar className="w-3 h-3" />
-            <span>{article.date}</span>
+          <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-1">
+              <Calendar className="w-3 h-3" />
+              <span>{article.date}</span>
+            </div>
+            {article.readTime && (
+              <div className="flex items-center space-x-1">
+                <BookOpen className="w-3 h-3" />
+                <span>{article.readTime}</span>
+              </div>
+            )}
           </div>
           
-          <a 
-            href={article.sourceUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center space-x-1 text-tech-blue hover:text-tech-blue/80 font-medium transition-colors duration-200"
-          >
-            <span>Baca Selengkapnya</span>
-            <ExternalLink className="w-3 h-3" />
-          </a>
+          {article.type === 'blog' && article.blogId ? (
+            <Link
+              to={`/blog/${article.blogId}`}
+              className="flex items-center space-x-1 text-tech-blue hover:text-tech-blue/80 font-medium transition-colors duration-200"
+            >
+              <span>Baca Selengkapnya</span>
+              <BookOpen className="w-3 h-3" />
+            </Link>
+          ) : (
+            <a 
+              href={article.sourceUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center space-x-1 text-tech-blue hover:text-tech-blue/80 font-medium transition-colors duration-200"
+            >
+              <span>Baca Selengkapnya</span>
+              <ExternalLink className="w-3 h-3" />
+            </a>
+          )}
         </div>
       </CardContent>
     </Card>
@@ -176,129 +235,8 @@ const News: React.FC = () => {
             </Button>
           </div>
 
-          {/* Blog Posts Section */}
-          <div className="mt-20 pt-12 border-t border-border/40">
-            <div className="text-center mb-12">
-              <h3 className="text-3xl font-bold text-foreground mb-4">Blog Tim Bandhayudha</h3>
-              <p className="text-muted-foreground text-lg max-w-3xl mx-auto">
-                Baca cerita mendalam, insight, dan pengalaman langsung dari Tim Bandhayudha
-              </p>
-            </div>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto mb-8">
-              {/* Featured Blog Post 1 */}
-              <Card className="group overflow-hidden border border-border/40 hover:border-tech-blue/50 transition-all duration-300 hover:shadow-lg hover:-translate-y-1 bg-background/80 backdrop-blur-sm">
-                <div className="relative overflow-hidden">
-                  <img 
-                    src="https://undip.ac.id/wp-content/uploads/2025/07/DSC04042-edit.jpg"
-                    alt="Robot Basket Bandhayudha"
-                    className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                  <div className="absolute top-4 left-4">
-                    <span className="inline-block px-3 py-1 text-xs font-medium text-white bg-tech-blue rounded-md">
-                      Featured
-                    </span>
-                  </div>
-                </div>
-                
-                <CardContent className="p-6">
-                  <div className="mb-3">
-                    <span className="inline-block px-2 py-1 text-xs font-medium text-tech-blue bg-tech-blue/10 rounded-md">
-                      Teknologi
-                    </span>
-                  </div>
-                  
-                  <h3 className="text-lg font-semibold text-foreground mb-3 leading-tight group-hover:text-tech-blue transition-colors duration-200 line-clamp-2">
-                    Inovasi Robot Basket Bandhayudha: Terobosan Teknologi Robotika Indonesia 2025
-                  </h3>
-                  
-                  <p className="text-muted-foreground text-sm mb-4 leading-relaxed line-clamp-3">
-                    Mengupas tuntas perjalanan Tim Bandhayudha dalam mengembangkan robot basket pertama di Indonesia dengan teknologi AI dan computer vision.
-                  </p>
-                  
-                  <div className="flex items-center justify-between text-xs text-muted-foreground mb-4">
-                    <div className="flex items-center space-x-1">
-                      <Calendar className="w-3 h-3" />
-                      <span>Agustus 5, 2025</span>
-                    </div>
-                    <div className="flex items-center space-x-1">
-                      <BookOpen className="w-3 h-3" />
-                      <span>12 menit baca</span>
-                    </div>
-                  </div>
-                  
-                  <Link 
-                    to="/blog/inovasi-robot-basket-bandhayudha-2025"
-                    className="inline-flex items-center text-tech-blue hover:text-tech-blue/80 font-medium text-sm transition-colors duration-200"
-                  >
-                    <span>Baca Selengkapnya</span>
-                    <BookOpen className="w-4 h-4 ml-2" />
-                  </Link>
-                </CardContent>
-              </Card>
-
-              {/* Featured Blog Post 2 */}
-              <Card className="group overflow-hidden border border-border/40 hover:border-tech-blue/50 transition-all duration-300 hover:shadow-lg hover:-translate-y-1 bg-background/80 backdrop-blur-sm">
-                <div className="relative overflow-hidden">
-                  <img 
-                    src="https://undip.ac.id/wp-content/uploads/2023/07/Tim-Bandhayudha-Universitas-Diponegoro-Berhasil-Meraih-Juara-3-Tingkat-Nasional-dan-Penghargaan-Desain-Terbaik-pada-Ajang-Kontes-Robot-Indonesia-KRI-2023-1.jpg"
-                    alt="KRI 2023 Bandhayudha"
-                    className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                </div>
-                
-                <CardContent className="p-6">
-                  <div className="mb-3">
-                    <span className="inline-block px-2 py-1 text-xs font-medium text-tech-blue bg-tech-blue/10 rounded-md">
-                      Kompetisi
-                    </span>
-                  </div>
-                  
-                  <h3 className="text-lg font-semibold text-foreground mb-3 leading-tight group-hover:text-tech-blue transition-colors duration-200 line-clamp-2">
-                    Perjalanan Menuju Podium: Cerita di Balik Juara 3 KRI 2023
-                  </h3>
-                  
-                  <p className="text-muted-foreground text-sm mb-4 leading-relaxed line-clamp-3">
-                    Mengintip perjuangan Tim Bandhayudha dalam meraih Juara 3 dan Best Design Award di Kontes Robot Indonesia 2023.
-                  </p>
-                  
-                  <div className="flex items-center justify-between text-xs text-muted-foreground mb-4">
-                    <div className="flex items-center space-x-1">
-                      <Calendar className="w-3 h-3" />
-                      <span>Juli 15, 2023</span>
-                    </div>
-                    <div className="flex items-center space-x-1">
-                      <BookOpen className="w-3 h-3" />
-                      <span>15 menit baca</span>
-                    </div>
-                  </div>
-                  
-                  <Link 
-                    to="/blog/perjalanan-tim-bandhayudha-kri-2023"
-                    className="inline-flex items-center text-tech-blue hover:text-tech-blue/80 font-medium text-sm transition-colors duration-200"
-                  >
-                    <span>Baca Selengkapnya</span>
-                    <BookOpen className="w-4 h-4 ml-2" />
-                  </Link>
-                </CardContent>
-              </Card>
-            </div>
-
-            <div className="text-center">
-              <p className="text-muted-foreground text-sm mb-4">
-                Ingin membaca lebih banyak cerita dan insight dari Tim Bandhayudha?
-              </p>
-              <Button 
-                variant="outline" 
-                className="px-6 py-2 border-tech-blue text-tech-blue hover:bg-tech-blue hover:text-white transition-colors duration-200"
-              >
-                Lihat Semua Blog Posts
-              </Button>
-            </div>
-          </div>
-
           {/* News Sources */}
-          <div className="mt-16 pt-8 border-t border-border/40">
+          <div className="mb-10 mt-12 pt-8 border-t border-border/40">
             <div className="text-center mb-8">
               <h3 className="text-xl font-semibold text-foreground mb-2">News Sources</h3>
               <p className="text-muted-foreground text-sm">Our latest updates from various trusted sources</p>
@@ -309,13 +247,10 @@ const News: React.FC = () => {
                 <span className="text-sm font-medium text-muted-foreground">UNDIP Official</span>
               </div>
               <div className="text-center">
-                <span className="text-sm font-medium text-muted-foreground">Campus News</span>
+                <span className="text-sm font-medium text-muted-foreground">FT UNDIP</span>
               </div>
               <div className="text-center">
-                <span className="text-sm font-medium text-muted-foreground">Tech Media</span>
-              </div>
-              <div className="text-center">
-                <span className="text-sm font-medium text-muted-foreground">Robotics Journal</span>
+                <span className="text-sm font-medium text-muted-foreground">Redaksi Bandhayudha</span>
               </div>
             </div>
           </div>
