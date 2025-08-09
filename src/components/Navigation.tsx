@@ -9,6 +9,7 @@ const Navigation = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isTeamDropdownOpen, setIsTeamDropdownOpen] = useState(false);
   const [hoveredTeamItem, setHoveredTeamItem] = useState<string | null>(null);
+  const [isNavbarHovered, setIsNavbarHovered] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const teamDropdownRef = useRef<HTMLDivElement>(null);
   const location = useLocation();
@@ -37,13 +38,13 @@ const Navigation = () => {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
+  // FIXED: Reorganize navLinks to remove Members and keep proper order
   const navLinks = [
-    { name: 'About', href: '/about' },
-    { name: 'Robots', href: '/robots' },
-    { name: 'Division', href: '/division' },
-    { name: 'History', href: '/history' },
-    { name: 'Members', href: '/members' },
-    { name: 'News', href: '/news' },
+    { name: 'About', href: '/about', isDropdown: false },
+    { name: 'Robots', href: '/robots', isDropdown: false },
+    { name: 'Team', href: '#', isDropdown: true }, // Special team dropdown
+    { name: 'History', href: '/history', isDropdown: false },
+    { name: 'News', href: '/news', isDropdown: false },
   ];
 
   const rightLinks = [
@@ -99,10 +100,12 @@ const Navigation = () => {
   return (
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
+        isScrolled || isNavbarHovered
           ? 'bg-background/95 backdrop-blur-md shadow-elevation-medium'
           : 'bg-transparent'
       }`}
+      onMouseEnter={() => setIsNavbarHovered(true)}
+      onMouseLeave={() => setIsNavbarHovered(false)}
     >
       <div className="container mx-auto px-4 h-16 flex items-center justify-between relative">
         {/* Logo */}
@@ -111,7 +114,7 @@ const Navigation = () => {
             src="/bandhayudha-photo/logo bandha.png"
             alt="Bandhayudha"
             className={`h-8 w-auto transition-all duration-300 ${
-              location.pathname !== '/' || isScrolled ? 'invert' : ''
+              location.pathname !== '/' || isScrolled || isNavbarHovered ? 'invert' : ''
             }`}
           />
         </Link>
@@ -120,40 +123,42 @@ const Navigation = () => {
         <div className="hidden lg:flex items-center space-x-8">
           {navLinks.map((link) => (
             <div key={link.name} className="relative">
-              {(link.name === 'Division' || link.name === 'Members') ? (
-                // Team dropdown - hanya tampil untuk Division, skip untuk Members
-                link.name === 'Division' ? (
-                  <div 
-                    ref={teamDropdownRef}
-                    className="relative"
-                    onMouseEnter={() => setIsTeamDropdownOpen(true)}
-                    onMouseLeave={() => setIsTeamDropdownOpen(false)}
+              {link.isDropdown ? (
+                // Team dropdown
+                <div 
+                  ref={teamDropdownRef}
+                  className="relative"
+                  onMouseEnter={() => setIsTeamDropdownOpen(true)}
+                  onMouseLeave={() => setIsTeamDropdownOpen(false)}
+                >
+                  <button
+                    className={`${
+                      location.pathname === '/' && !isScrolled && !isNavbarHovered
+                        ? 'text-white hover:text-white/80' 
+                        : 'text-foreground hover:text-tech-blue'
+                    } transition-colors duration-200 font-medium flex items-center space-x-1`}
                   >
-                    <button
-                      className="text-foreground hover:text-tech-blue transition-colors duration-200 font-medium flex items-center space-x-1"
-                    >
-                      <span>Team</span>
-                      <ChevronDown className={`h-4 w-4 transition-transform duration-200 ${
-                        isTeamDropdownOpen ? 'rotate-180' : ''
-                      }`} />
-                    </button>
+                    <span>{link.name}</span>
+                    <ChevronDown className={`h-4 w-4 transition-transform duration-200 ${
+                      isTeamDropdownOpen ? 'rotate-180' : ''
+                    }`} />
+                  </button>
 
-                    {/* Team Dropdown Menu */}
-                    {isTeamDropdownOpen && (
-                      <>
-                        {/* Specific bridge area only around Team dropdown */}
-                        <div 
-                          className="fixed top-15 left-1/2 transform -translate-x-1/2 w-[650px] h-80 z-30"
-                          onMouseEnter={() => setIsTeamDropdownOpen(true)}
-                          onMouseLeave={() => setIsTeamDropdownOpen(false)}
-                        ></div>
-                        
-                        <div 
-                          className="fixed top-16 left-1/2 transform -translate-x-1/2 w-[600px] bg-background/95 backdrop-blur-md shadow-lg border border-border z-40"
-                          onMouseEnter={() => setIsTeamDropdownOpen(true)}
-                          onMouseLeave={() => setIsTeamDropdownOpen(false)}
-                        >
-                        
+                  {/* Team Dropdown Menu */}
+                  {isTeamDropdownOpen && (
+                    <>
+                      {/* Bridge area for smooth hover */}
+                      <div 
+                        className="fixed top-15 left-1/2 transform -translate-x-1/2 w-[650px] h-80 z-30"
+                        onMouseEnter={() => setIsTeamDropdownOpen(true)}
+                        onMouseLeave={() => setIsTeamDropdownOpen(false)}
+                      ></div>
+                      
+                      <div 
+                        className="fixed top-16 left-1/2 transform -translate-x-1/2 w-[600px] bg-background/95 backdrop-blur-md shadow-lg border border-border z-40"
+                        onMouseEnter={() => setIsTeamDropdownOpen(true)}
+                        onMouseLeave={() => setIsTeamDropdownOpen(false)}
+                      >
                         <div className="flex">
                           {/* Left Column - Menu Items */}
                           <div className="w-[360px] p-6 space-y-4">
@@ -192,15 +197,18 @@ const Navigation = () => {
                           </div>
                         </div>
                       </div>
-                      </>
-                    )}
-                  </div>
-                ) : null // Members akan di-skip
+                    </>
+                  )}
+                </div>
               ) : (
-                // Link biasa untuk menu lainnya (About, Robots, History, News)
+                // Regular navigation link
                 <Link
                   to={link.href}
-                  className="text-foreground hover:text-tech-blue transition-colors duration-200 font-medium"
+                  className={`transition-colors duration-200 font-medium ${
+                    location.pathname === '/' && !isScrolled && !isNavbarHovered
+                      ? 'text-white hover:text-white/80' 
+                      : 'text-foreground hover:text-tech-blue'
+                  }`}
                 >
                   {link.name}
                 </Link>
@@ -218,7 +226,11 @@ const Navigation = () => {
                 key={link.name}
                 asChild
                 variant={link.name === 'Contact Us' ? 'default' : 'outline'}
-                className="font-medium"
+                className={`font-medium ${
+                  location.pathname === '/' && !isScrolled && !isNavbarHovered && link.name !== 'Contact Us'
+                    ? 'text-black bg-white border-white hover:bg-white/90 hover:text-black' 
+                    : ''
+                }`}
               >
                 <Link to={link.href}>{link.name}</Link>
               </Button>
@@ -231,12 +243,16 @@ const Navigation = () => {
               variant="ghost"
               size="icon"
               onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-              className="hover:bg-accent"
+              className={`hover:bg-accent ${
+                location.pathname === '/' && !isScrolled && !isNavbarHovered
+                  ? 'text-white hover:bg-white/20' 
+                  : ''
+              }`}
             >
               <Menu className="h-5 w-5" />
             </Button>
 
-            {/* Dropdown Content - FIXED */}
+            {/* Dropdown Content */}
             {isDropdownOpen && (
               <div className="absolute right-0 mt-2 w-56 bg-background/95 backdrop-blur-md rounded-lg shadow-lg border border-border animate-in slide-in-from-top-2 duration-200 z-50">
                 <div className="py-2">
@@ -279,31 +295,29 @@ const Navigation = () => {
           <div className="container mx-auto px-4 py-4 space-y-4">
             {navLinks.map((link) => (
               <div key={link.name}>
-                {(link.name === 'Division' || link.name === 'Members') ? (
-                  // Team section di mobile - hanya tampil untuk Division
-                  link.name === 'Division' ? (
-                    <div className="space-y-2">
-                      <div className="text-foreground font-medium py-2 border-b border-border">
-                        Team
-                      </div>
-                      {teamDropdownItems.map((item) => (
-                        <Link
-                          key={item.name}
-                          to={item.href}
-                          onClick={() => setIsMobileMenuOpen(false)}
-                          className="group flex items-center w-full p-3 text-sm text-foreground hover:bg-accent hover:text-accent-foreground transition-colors duration-200 rounded-md border border-border ml-4"
-                        >
-                        <item.icon className="h-5 w-5 mr-3 text-tech-blue group-hover:text-accent-foreground transition-colors duration-200" />
-                          <div className="flex flex-col items-start">
-                            <span className="font-medium">{item.name}</span>
-                            <span className="text-xs text-muted-foreground group-hover:text-accent-foreground/70">{item.description}</span>
-                          </div>
-                        </Link>
-                      ))}
+                {link.isDropdown ? (
+                  // Team section di mobile
+                  <div className="space-y-2">
+                    <div className="text-foreground font-medium py-2 border-b border-border">
+                      {link.name}
                     </div>
-                  ) : null // Members di-skip
+                    {teamDropdownItems.map((item) => (
+                      <Link
+                        key={item.name}
+                        to={item.href}
+                        onClick={() => setIsMobileMenuOpen(false)}
+                        className="group flex items-center w-full p-3 text-sm text-foreground hover:bg-accent hover:text-accent-foreground transition-colors duration-200 rounded-md border border-border ml-4"
+                      >
+                        <item.icon className="h-5 w-5 mr-3 text-tech-blue group-hover:text-accent-foreground transition-colors duration-200" />
+                        <div className="flex flex-col items-start">
+                          <span className="font-medium">{item.name}</span>
+                          <span className="text-xs text-muted-foreground group-hover:text-accent-foreground/70">{item.description}</span>
+                        </div>
+                      </Link>
+                    ))}
+                  </div>
                 ) : (
-                  // Link biasa untuk menu lainnya (About, Robots, History, News)
+                  // Regular mobile link
                   <Link
                     to={link.href}
                     onClick={() => setIsMobileMenuOpen(false)}
@@ -314,6 +328,7 @@ const Navigation = () => {
                 )}
               </div>
             ))}
+            
             <div className="pt-4 border-t border-border space-y-2">
               {/* Support and Contact Us buttons */}
               {rightLinks.slice(0, -1).map((link) => (
@@ -338,7 +353,7 @@ const Navigation = () => {
                 <Link to="/login">Login</Link>
               </Button>
 
-              {/* Bandhalab and Bandhadrive - FIXED */}
+              {/* Bandhalab and Bandhadrive */}
               <div className="pt-2 space-y-2">
                 {dropdownItems.map((item) => (
                   <a
