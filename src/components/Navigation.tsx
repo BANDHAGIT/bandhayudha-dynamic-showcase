@@ -128,9 +128,9 @@ const Navigation = () => {
                     {/* Team Dropdown Menu */}
                     {isTeamDropdownOpen && (
                       <>
-                        {/* Invisible bridge to connect button with dropdown - covers entire area */}
+                        {/* Specific bridge area only around Team dropdown */}
                         <div 
-                          className="fixed top-0 left-1/2 transform -translate-x-1/2 w-[600px] h-64 z-40"
+                          className="fixed top-15 left-1/2 transform -translate-x-1/2 w-[650px] h-80 z-30"
                           onMouseEnter={() => setIsTeamDropdownOpen(true)}
                           onMouseLeave={() => setIsTeamDropdownOpen(false)}
                         ></div>
@@ -142,30 +142,30 @@ const Navigation = () => {
                         >
                         
                         <div className="flex">
-                          {/* Left Column - Menu Items (narrower like Boston Dynamics) */}
+                          {/* Left Column - Menu Items */}
                           <div className="w-[360px] p-6 space-y-4">
                             {teamDropdownItems.map((item) => (
                               <Link
                                 key={item.name}
                                 to={item.href}
-                                className="flex items-center space-x-3 p-3 rounded-lg hover:bg-accent transition-colors duration-200 group"
+                                className="flex items-center space-x-3 p-3 rounded-lg hover:bg-accent hover:text-accent-foreground transition-colors duration-200 group"
                                 onClick={() => setIsTeamDropdownOpen(false)}
                               >
-                                                                  <div className="flex-shrink-0 w-10 h-10 bg-tech-blue/10 flex items-center justify-center group-hover:bg-tech-blue/20 transition-colors duration-200">
-                                  <item.icon className="h-5 w-5 text-tech-blue" />
+                                <div className="flex-shrink-0 w-10 h-10 bg-tech-blue/10 flex items-center justify-center group-hover:bg-tech-blue/20 transition-colors duration-200">
+                                  <item.icon className="h-5 w-5 text-tech-blue group-hover:text-accent-foreground transition-colors duration-200" />
                                 </div>
                                 <div className="flex flex-col">
-                                  <span className="font-semibold text-foreground group-hover:text-tech-blue transition-colors duration-200">{item.name}</span>
-                                  <span className="text-sm text-muted-foreground">{item.description}</span>
+                                  <span className="font-semibold text-foreground group-hover:text-accent-foreground transition-colors duration-200">{item.name}</span>
+                                  <span className="text-sm text-muted-foreground group-hover:text-accent-foreground/70 transition-colors duration-200">{item.description}</span>
                                 </div>
                               </Link>
                             ))}
                           </div>
                           
-                          {/* Right Column - Large Image (wider like Boston Dynamics) */}
+                          {/* Right Column - Large Image */}
                           <div className="w-[240px] relative overflow-hidden">
                             <img
-                              src="/bandhayudha-photo/team-group.jpg"
+                              src="/bandhayudha-photo/SAMWA.png"
                               alt="Bandhayudha Team"
                               className="w-full h-full object-cover"
                               onError={(e) => {
@@ -176,7 +176,7 @@ const Navigation = () => {
                             <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
                           </div>
                         </div>
-                                              </div>
+                      </div>
                       </>
                     )}
                   </div>
@@ -221,7 +221,7 @@ const Navigation = () => {
               <Menu className="h-5 w-5" />
             </Button>
 
-            {/* Dropdown Content */}
+            {/* Dropdown Content - FIXED */}
             {isDropdownOpen && (
               <div className="absolute right-0 mt-2 w-56 bg-background/95 backdrop-blur-md rounded-lg shadow-lg border border-border animate-in slide-in-from-top-2 duration-200 z-50">
                 <div className="py-2">
@@ -232,12 +232,12 @@ const Navigation = () => {
                       target="_blank"
                       rel="noopener noreferrer"
                       onClick={() => setIsDropdownOpen(false)}
-                      className="flex items-center px-4 py-3 text-sm text-foreground hover:bg-accent transition-colors duration-200"
+                      className="group flex items-center px-4 py-3 text-sm text-foreground hover:bg-accent hover:text-accent-foreground transition-colors duration-200"
                     >
-                      <item.icon className="h-5 w-5 mr-3 text-tech-blue" />
+                      <item.icon className="h-5 w-5 mr-3 text-tech-blue group-hover:text-accent-foreground transition-colors duration-200" />
                       <div className="flex flex-col">
                         <span className="font-medium">{item.name}</span>
-                        <span className="text-xs text-muted-foreground">{item.description}</span>
+                        <span className="text-xs text-muted-foreground group-hover:text-accent-foreground/70">{item.description}</span>
                       </div>
                     </a>
                   ))}
@@ -276,12 +276,12 @@ const Navigation = () => {
                           key={item.name}
                           to={item.href}
                           onClick={() => setIsMobileMenuOpen(false)}
-                          className="flex items-center w-full p-3 text-sm text-foreground hover:bg-accent transition-colors duration-200 rounded-md border border-border ml-4"
+                          className="group flex items-center w-full p-3 text-sm text-foreground hover:bg-accent hover:text-accent-foreground transition-colors duration-200 rounded-md border border-border ml-4"
                         >
-                          <item.icon className="h-5 w-5 mr-3 text-tech-blue" />
+                        <item.icon className="h-5 w-5 mr-3 text-tech-blue group-hover:text-accent-foreground transition-colors duration-200" />
                           <div className="flex flex-col items-start">
                             <span className="font-medium">{item.name}</span>
-                            <span className="text-xs text-muted-foreground">{item.description}</span>
+                            <span className="text-xs text-muted-foreground group-hover:text-accent-foreground/70">{item.description}</span>
                           </div>
                         </Link>
                       ))}
@@ -323,7 +323,7 @@ const Navigation = () => {
                 <Link to="/login">Login</Link>
               </Button>
 
-              {/* Bandhalab and Bandhadrive */}
+              {/* Bandhalab and Bandhadrive - FIXED */}
               <div className="pt-2 space-y-2">
                 {dropdownItems.map((item) => (
                   <a
@@ -332,12 +332,12 @@ const Navigation = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className="flex items-center w-full p-3 text-sm text-foreground hover:bg-accent transition-colors duration-200 rounded-md border border-border"
+                    className="group flex items-center w-full p-3 text-sm text-foreground hover:bg-accent hover:text-accent-foreground transition-colors duration-200 rounded-md border border-border"
                   >
-                    <item.icon className="h-5 w-5 mr-3 text-tech-blue" />
+                    <item.icon className="h-5 w-5 mr-3 text-tech-blue group-hover:text-accent-foreground transition-colors duration-200" />
                     <div className="flex flex-col items-start">
                       <span className="font-medium">{item.name}</span>
-                      <span className="text-xs text-muted-foreground">{item.description}</span>
+                      <span className="text-xs text-muted-foreground group-hover:text-accent-foreground/70">{item.description}</span>
                     </div>
                   </a>
                 ))}

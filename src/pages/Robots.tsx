@@ -28,7 +28,7 @@ const Robots = () => {
         'Bluetooth Communication',
       ],
       achievements: [
-        'Regional 3rd Place',
+        // 'Regional 3rd Place',
       ]
     },
     {
@@ -58,7 +58,7 @@ const Robots = () => {
       y_position: '6',
       description: 'NOGO is an advanced semi-autonomous robot designed for the ABU Robocon 2024 competition. It features intelligent navigation and precision manipulation capabilities for complex field challenges.',
       specs: [
-        'NVIDIA Jetson Orin Nano',
+        'Dual BLDC Shooting Mechanism',
         'STM32H7 for Control',
         'Omnidirectional Movement',
         'Precision Manipulation',

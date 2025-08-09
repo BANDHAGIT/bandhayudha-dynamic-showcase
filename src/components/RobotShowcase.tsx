@@ -13,7 +13,7 @@ const RobotShowcase = () => {
       name: 'Slamet',
       category: 'Basketball Shooting Robot',
       series: 'BASKETBALL-SERIES',
-      image: '/bandhayudha-photo/Robots/R1_25.JPG',
+      image: '/bandhayudha-photo/Robots/R1_25_CROP.JPG',
       description: 'Next generation competitive robot for ABU Robocon 2025',
       models: ['SL-25']
     },
