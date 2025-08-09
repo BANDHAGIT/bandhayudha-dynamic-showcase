@@ -43,6 +43,7 @@ const Navigation = () => {
     { name: 'Division', href: '/division' },
     { name: 'History', href: '/history' },
     { name: 'Members', href: '/members' },
+    { name: 'News', href: '/news' },
   ];
 
   const rightLinks = [
@@ -73,7 +74,7 @@ const Navigation = () => {
       icon: Users,
       href: '/division',
       description: 'Our specialized divisions',
-      image: '/bandhayudha-photo/Division.jpg'
+      image: '/bandhayudha-photo/Division.JPG'
     },
     {
       name: 'Members',
@@ -87,12 +88,12 @@ const Navigation = () => {
   // Function to get current image based on hover state
   const getCurrentImage = () => {
     if (hoveredTeamItem === 'Division') {
-      return '/bandhayudha-photo/Division.jpg';
+      return '/bandhayudha-photo/Division.JPG';
     } else if (hoveredTeamItem === 'Members') {
       return '/bandhayudha-photo/SAMWA.png';
     }
     // Default image when no item is hovered
-    return '/bandhayudha-photo/Division.jpg';
+    return '/bandhayudha-photo/Division.JPG';
   };
 
   return (
@@ -196,7 +197,7 @@ const Navigation = () => {
                   </div>
                 ) : null // Members akan di-skip
               ) : (
-                // Link biasa untuk menu lainnya (About, Robots, History)
+                // Link biasa untuk menu lainnya (About, Robots, History, News)
                 <Link
                   to={link.href}
                   className="text-foreground hover:text-tech-blue transition-colors duration-200 font-medium"
@@ -302,7 +303,7 @@ const Navigation = () => {
                     </div>
                   ) : null // Members di-skip
                 ) : (
-                  // Link biasa untuk menu lainnya
+                  // Link biasa untuk menu lainnya (About, Robots, History, News)
                   <Link
                     to={link.href}
                     onClick={() => setIsMobileMenuOpen(false)}

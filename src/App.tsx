@@ -12,6 +12,7 @@ import Members from "./pages/Members";
 import Support from "./pages/Support";
 import Division from "./pages/Division";
 import Robots from "./pages/Robots";
+import News from "./pages/News";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -32,6 +33,7 @@ const App = () => (
           <Route path="/support" element={<Support />} />
           <Route path="/division" element={<Division />} />
           <Route path="/robots" element={<Robots />} />
+          <Route path="/news" element={<News />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
