@@ -8,6 +8,7 @@ const Navigation = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isTeamDropdownOpen, setIsTeamDropdownOpen] = useState(false);
+  const [hoveredTeamItem, setHoveredTeamItem] = useState<string | null>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const teamDropdownRef = useRef<HTMLDivElement>(null);
   const location = useLocation();
@@ -72,16 +73,27 @@ const Navigation = () => {
       icon: Users,
       href: '/division',
       description: 'Our specialized divisions',
-      image: '/bandhayudha-photo/team-divisions.jpg'
+      image: '/bandhayudha-photo/Division.jpg'
     },
     {
       name: 'Members',
       icon: UserCheck,
       href: '/members',
       description: 'Meet our team members',
-      image: '/bandhayudha-photo/team-members.jpg'
+      image: '/bandhayudha-photo/SAMWA.png'
     }
   ];
+
+  // Function to get current image based on hover state
+  const getCurrentImage = () => {
+    if (hoveredTeamItem === 'Division') {
+      return '/bandhayudha-photo/Division.jpg';
+    } else if (hoveredTeamItem === 'Members') {
+      return '/bandhayudha-photo/SAMWA.png';
+    }
+    // Default image when no item is hovered
+    return '/bandhayudha-photo/Division.jpg';
+  };
 
   return (
     <nav
@@ -150,6 +162,8 @@ const Navigation = () => {
                                 to={item.href}
                                 className="flex items-center space-x-3 p-3 rounded-lg hover:bg-accent hover:text-accent-foreground transition-colors duration-200 group"
                                 onClick={() => setIsTeamDropdownOpen(false)}
+                                onMouseEnter={() => setHoveredTeamItem(item.name)}
+                                onMouseLeave={() => setHoveredTeamItem(null)}
                               >
                                 <div className="flex-shrink-0 w-10 h-10 bg-tech-blue/10 flex items-center justify-center group-hover:bg-tech-blue/20 transition-colors duration-200">
                                   <item.icon className="h-5 w-5 text-tech-blue group-hover:text-accent-foreground transition-colors duration-200" />
@@ -162,12 +176,12 @@ const Navigation = () => {
                             ))}
                           </div>
                           
-                          {/* Right Column - Large Image */}
+                          {/* Right Column - Dynamic Image */}
                           <div className="w-[240px] relative overflow-hidden">
                             <img
-                              src="/bandhayudha-photo/SAMWA.png"
-                              alt="Bandhayudha Team"
-                              className="w-full h-full object-cover"
+                              src={getCurrentImage()}
+                              alt={hoveredTeamItem ? `${hoveredTeamItem} Photo` : "Team Photo"}
+                              className="w-full h-full object-cover transition-all duration-300 ease-in-out"
                               onError={(e) => {
                                 const target = e.target as HTMLImageElement;
                                 target.src = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='200' viewBox='0 0 240 200'%3E%3Crect width='240' height='200' fill='%23f3f4f6'/%3E%3Ctext x='120' y='100' text-anchor='middle' dy='0.35em' font-family='system-ui' font-size='16' fill='%236b7280'%3ETeam Photo%3C/text%3E%3C/svg%3E`;
