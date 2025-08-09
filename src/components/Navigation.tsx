@@ -1,13 +1,15 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { Menu, X, FlaskConical, Book } from 'lucide-react';
+import { Menu, X, FlaskConical, Book, Users, UserCheck, ChevronDown } from 'lucide-react';
 
 const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isTeamDropdownOpen, setIsTeamDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const teamDropdownRef = useRef<HTMLDivElement>(null);
   const location = useLocation();
 
   useEffect(() => {
@@ -24,6 +26,9 @@ const Navigation = () => {
     const handleClickOutside = (event: MouseEvent) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
         setIsDropdownOpen(false);
+      }
+      if (teamDropdownRef.current && !teamDropdownRef.current.contains(event.target as Node)) {
+        setIsTeamDropdownOpen(false);
       }
     };
 
@@ -60,6 +65,24 @@ const Navigation = () => {
     }
   ];
 
+  // Team dropdown items
+  const teamDropdownItems = [
+    {
+      name: 'Division',
+      icon: Users,
+      href: '/division',
+      description: 'Our specialized divisions',
+      image: '/bandhayudha-photo/team-divisions.jpg'
+    },
+    {
+      name: 'Members',
+      icon: UserCheck,
+      href: '/members',
+      description: 'Meet our team members',
+      image: '/bandhayudha-photo/team-members.jpg'
+    }
+  ];
+
   return (
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
@@ -83,13 +106,91 @@ const Navigation = () => {
         {/* Desktop Navigation */}
         <div className="hidden lg:flex items-center space-x-8">
           {navLinks.map((link) => (
-            <Link
-              key={link.name}
-              to={link.href}
-              className="text-foreground hover:text-tech-blue transition-colors duration-200 font-medium"
-            >
-              {link.name}
-            </Link>
+            <div key={link.name} className="relative">
+              {(link.name === 'Division' || link.name === 'Members') ? (
+                // Team dropdown - hanya tampil untuk Division, skip untuk Members
+                link.name === 'Division' ? (
+                  <div 
+                    ref={teamDropdownRef}
+                    className="relative"
+                    onMouseEnter={() => setIsTeamDropdownOpen(true)}
+                    onMouseLeave={() => setIsTeamDropdownOpen(false)}
+                  >
+                    <button
+                      className="text-foreground hover:text-tech-blue transition-colors duration-200 font-medium flex items-center space-x-1"
+                    >
+                      <span>Team</span>
+                      <ChevronDown className={`h-4 w-4 transition-transform duration-200 ${
+                        isTeamDropdownOpen ? 'rotate-180' : ''
+                      }`} />
+                    </button>
+
+                    {/* Team Dropdown Menu */}
+                    {isTeamDropdownOpen && (
+                      <>
+                        {/* Invisible bridge to connect button with dropdown - covers entire area */}
+                        <div 
+                          className="fixed top-0 left-1/2 transform -translate-x-1/2 w-[600px] h-64 z-40"
+                          onMouseEnter={() => setIsTeamDropdownOpen(true)}
+                          onMouseLeave={() => setIsTeamDropdownOpen(false)}
+                        ></div>
+                        
+                        <div 
+                          className="fixed top-16 left-1/2 transform -translate-x-1/2 w-[600px] bg-background/95 backdrop-blur-md shadow-lg border border-border z-40"
+                          onMouseEnter={() => setIsTeamDropdownOpen(true)}
+                          onMouseLeave={() => setIsTeamDropdownOpen(false)}
+                        >
+                        
+                        <div className="flex">
+                          {/* Left Column - Menu Items (narrower like Boston Dynamics) */}
+                          <div className="w-[360px] p-6 space-y-4">
+                            {teamDropdownItems.map((item) => (
+                              <Link
+                                key={item.name}
+                                to={item.href}
+                                className="flex items-center space-x-3 p-3 rounded-lg hover:bg-accent transition-colors duration-200 group"
+                                onClick={() => setIsTeamDropdownOpen(false)}
+                              >
+                                                                  <div className="flex-shrink-0 w-10 h-10 bg-tech-blue/10 flex items-center justify-center group-hover:bg-tech-blue/20 transition-colors duration-200">
+                                  <item.icon className="h-5 w-5 text-tech-blue" />
+                                </div>
+                                <div className="flex flex-col">
+                                  <span className="font-semibold text-foreground group-hover:text-tech-blue transition-colors duration-200">{item.name}</span>
+                                  <span className="text-sm text-muted-foreground">{item.description}</span>
+                                </div>
+                              </Link>
+                            ))}
+                          </div>
+                          
+                          {/* Right Column - Large Image (wider like Boston Dynamics) */}
+                          <div className="w-[240px] relative overflow-hidden">
+                            <img
+                              src="/bandhayudha-photo/team-group.jpg"
+                              alt="Bandhayudha Team"
+                              className="w-full h-full object-cover"
+                              onError={(e) => {
+                                const target = e.target as HTMLImageElement;
+                                target.src = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='200' viewBox='0 0 240 200'%3E%3Crect width='240' height='200' fill='%23f3f4f6'/%3E%3Ctext x='120' y='100' text-anchor='middle' dy='0.35em' font-family='system-ui' font-size='16' fill='%236b7280'%3ETeam Photo%3C/text%3E%3C/svg%3E`;
+                              }}
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+                          </div>
+                        </div>
+                                              </div>
+                      </>
+                    )}
+                  </div>
+                ) : null // Members akan di-skip
+              ) : (
+                // Link biasa untuk menu lainnya (About, Robots, History)
+                <Link
+                  to={link.href}
+                  className="text-foreground hover:text-tech-blue transition-colors duration-200 font-medium"
+                >
+                  {link.name}
+                </Link>
+              )}
+            </div>
           ))}
         </div>
 
@@ -162,14 +263,41 @@ const Navigation = () => {
         <div className="lg:hidden bg-background/95 backdrop-blur-md border-t border-border">
           <div className="container mx-auto px-4 py-4 space-y-4">
             {navLinks.map((link) => (
-              <Link
-                key={link.name}
-                to={link.href}
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="block text-foreground hover:text-tech-blue transition-colors duration-200 font-medium py-2"
-              >
-                {link.name}
-              </Link>
+              <div key={link.name}>
+                {(link.name === 'Division' || link.name === 'Members') ? (
+                  // Team section di mobile - hanya tampil untuk Division
+                  link.name === 'Division' ? (
+                    <div className="space-y-2">
+                      <div className="text-foreground font-medium py-2 border-b border-border">
+                        Team
+                      </div>
+                      {teamDropdownItems.map((item) => (
+                        <Link
+                          key={item.name}
+                          to={item.href}
+                          onClick={() => setIsMobileMenuOpen(false)}
+                          className="flex items-center w-full p-3 text-sm text-foreground hover:bg-accent transition-colors duration-200 rounded-md border border-border ml-4"
+                        >
+                          <item.icon className="h-5 w-5 mr-3 text-tech-blue" />
+                          <div className="flex flex-col items-start">
+                            <span className="font-medium">{item.name}</span>
+                            <span className="text-xs text-muted-foreground">{item.description}</span>
+                          </div>
+                        </Link>
+                      ))}
+                    </div>
+                  ) : null // Members di-skip
+                ) : (
+                  // Link biasa untuk menu lainnya
+                  <Link
+                    to={link.href}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="block text-foreground hover:text-tech-blue transition-colors duration-200 font-medium py-2"
+                  >
+                    {link.name}
+                  </Link>
+                )}
+              </div>
             ))}
             <div className="pt-4 border-t border-border space-y-2">
               {/* Support and Contact Us buttons */}
