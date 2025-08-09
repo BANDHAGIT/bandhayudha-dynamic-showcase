@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Wrench, Zap, Code, Users, Target, Lightbulb } from 'lucide-react';
@@ -6,6 +6,22 @@ import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 
 const Division = () => {
+  const [visibleCards, setVisibleCards] = useState([]);
+  const [isMobile, setIsMobile] = useState(false);
+  const cardRefs = useRef([]);
+
+  // Detect mobile screen size
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 1024); // lg breakpoint
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   const divisions = [
     {
       name: 'Mechanical Division',
@@ -147,6 +163,55 @@ const Division = () => {
     }
   ];
 
+  useEffect(() => {
+    const observers = [];
+
+    cardRefs.current.forEach((ref, index) => {
+      if (ref) {
+        const observer = new IntersectionObserver(
+          ([entry]) => {
+            if (entry.isIntersecting) {
+              setVisibleCards(prev => [...new Set([...prev, index])]);
+            }
+          },
+          {
+            threshold: isMobile ? 0.5 : 0.1, // 50% card harus terlihat di mobile
+            rootMargin: isMobile ? '0px 0px -300px 0px' : '0px 0px -50px 0px' // Sangat konservatif di mobile
+          }
+        );
+        observer.observe(ref);
+        observers.push(observer);
+      }
+    });
+
+    return () => {
+      observers.forEach(observer => observer.disconnect());
+    };
+  }, [isMobile]); // Re-run ketika isMobile berubah
+
+  const getAnimationClass = (index) => {
+    const isVisible = visibleCards.includes(index);
+    
+    if (!isVisible) {
+      // Pada mobile dan desktop, tetap alternating slide dari kiri/kanan
+      const isLeftColumn = index % 2 === 0; // Division 1, 3 (index 0, 2)
+      
+      if (isMobile) {
+        // Mobile: gunakan translate yang lebih kecil agar tidak keluar layar
+        return isLeftColumn 
+          ? '-translate-x-1/2 opacity-0' 
+          : 'translate-x-1/2 opacity-0';
+      } else {
+        // Desktop: gunakan translate penuh
+        return isLeftColumn 
+          ? '-translate-x-full opacity-0' 
+          : 'translate-x-full opacity-0';
+      }
+    }
+    
+    return 'translate-x-0 opacity-100';
+  };
+
   return (
     <div className="min-h-screen">
       <Navigation />
@@ -175,64 +240,70 @@ const Division = () => {
 
           <div className="grid lg:grid-cols-2 gap-8 max-w-7xl mx-auto">
             {divisions.map((division, index) => (
-              <Card key={index} className="shadow-elevation-medium hover:shadow-elevation-high transition-all duration-300 hover:-translate-y-2">
-                <CardHeader className="pb-4">
-                  <div className="flex items-center justify-between mb-4">
-                    <div className={`${division.color} p-3 rounded-lg`}>
-                      <div className="text-white">{division.icon}</div>
+              <div
+                key={index}
+                ref={el => cardRefs.current[index] = el}
+                className={`transform transition-all duration-700 ease-out ${getAnimationClass(index)}`}
+              >
+                <Card className="shadow-elevation-medium hover:shadow-elevation-high transition-all duration-300 hover:-translate-y-2 h-full">
+                  <CardHeader className="pb-4">
+                    <div className="flex items-center justify-between mb-4">
+                      <div className={`${division.color} p-3 rounded-lg`}>
+                        <div className="text-white">{division.icon}</div>
+                      </div>
+                      <Badge variant="outline" className="font-semibold">
+                        {division.memberCount} Members
+                      </Badge>
                     </div>
-                    <Badge variant="outline" className="font-semibold">
-                      {division.memberCount} Members
-                    </Badge>
-                  </div>
-                  <CardTitle className="text-2xl font-bold text-foreground">
-                    {division.name}
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-6">
-                  <p className="text-muted-foreground leading-relaxed">
-                    {division.description}
-                  </p>
+                    <CardTitle className="text-2xl font-bold text-foreground">
+                      {division.name}
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-6">
+                    <p className="text-muted-foreground leading-relaxed">
+                      {division.description}
+                    </p>
 
-                  {/* Responsibilities */}
-                  <div>
-                    <h4 className="font-semibold text-foreground mb-3">Key Responsibilities</h4>
-                    <div className="grid grid-cols-2 gap-2">
-                      {division.responsibilities.map((responsibility, respIndex) => (
-                        <div key={respIndex} className="flex items-start space-x-2">
-                          <div className={`w-2 h-2 ${division.color} rounded-full mt-2 flex-shrink-0`}></div>
-                          <span className="text-sm text-muted-foreground">{responsibility}</span>
-                        </div>
-                      ))}
+                    {/* Responsibilities */}
+                    <div>
+                      <h4 className="font-semibold text-foreground mb-3">Key Responsibilities</h4>
+                      <div className="grid grid-cols-2 gap-2">
+                        {division.responsibilities.map((responsibility, respIndex) => (
+                          <div key={respIndex} className="flex items-start space-x-2">
+                            <div className={`w-2 h-2 ${division.color} rounded-full mt-2 flex-shrink-0`}></div>
+                            <span className="text-sm text-muted-foreground">{responsibility}</span>
+                          </div>
+                        ))}
+                      </div>
                     </div>
-                  </div>
 
-                  {/* Skills */}
-                  <div>
-                    <h4 className="font-semibold text-foreground mb-3">Technical Skills</h4>
-                    <div className="flex flex-wrap gap-2">
-                      {division.skills.map((skill, skillIndex) => (
-                        <Badge key={skillIndex} variant="secondary" className="text-xs">
-                          {skill}
-                        </Badge>
-                      ))}
+                    {/* Skills */}
+                    <div>
+                      <h4 className="font-semibold text-foreground mb-3">Technical Skills</h4>
+                      <div className="flex flex-wrap gap-2">
+                        {division.skills.map((skill, skillIndex) => (
+                          <Badge key={skillIndex} variant="secondary" className="text-xs">
+                            {skill}
+                          </Badge>
+                        ))}
+                      </div>
                     </div>
-                  </div>
 
-                  {/* Recent Projects */}
-                  <div>
-                    <h4 className="font-semibold text-foreground mb-3">Recent Projects</h4>
-                    <ul className="space-y-1">
-                      {division.projects.map((project, projectIndex) => (
-                        <li key={projectIndex} className="text-sm text-muted-foreground flex items-center space-x-2">
-                          <div className={`w-1.5 h-1.5 ${division.color} rounded-full`}></div>
-                          <span>{project}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </CardContent>
-              </Card>
+                    {/* Recent Projects */}
+                    <div>
+                      <h4 className="font-semibold text-foreground mb-3">Recent Projects</h4>
+                      <ul className="space-y-1">
+                        {division.projects.map((project, projectIndex) => (
+                          <li key={projectIndex} className="text-sm text-muted-foreground flex items-center space-x-2">
+                            <div className={`w-1.5 h-1.5 ${division.color} rounded-full`}></div>
+                            <span>{project}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
             ))}
           </div>
         </div>
