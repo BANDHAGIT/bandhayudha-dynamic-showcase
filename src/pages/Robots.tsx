@@ -18,8 +18,8 @@ const Robots = () => {
       name: 'SLAMET',
       category: 'ABURobocon 2025',
       image: '/bandhayudha-photo/Robots/R1_25.JPG',
-      scale: 'scale-100',
-      y_position: '0',
+      scale: 'scale-105',
+      y_position: '6',
       description: 'SLAMET is a shooter robot designed for the ABU Robocon 2025 competition. It features a jetson orin nano for advanced communication protocol, Triple communication fallback mechanism, with unique dribbling mechanism.',
       specs: [
         'NVIDIA Jetson Orin Nano',
@@ -36,8 +36,8 @@ const Robots = () => {
       name: 'ULO',
       category: 'ABURobocon 2024',
       image: '/bandhayudha-photo/Robots/R2_24.png',
-      scale: 'scale-100',
-      y_position: '0',
+      scale: 'scale-105',
+      y_position: '6',
       description: 'ULO is a versatile autonomous robot designed for the ABU Robocon 2024 competition. It features a jetson orin nano for advanced Computer Vision, swerve drive train for enhanced maneuverability, and a robust navigation system that allows it to adapt to dynamic environments.',
       specs: [
         'NVIDIA Jetson Orin Nano',
@@ -54,8 +54,8 @@ const Robots = () => {
       name: 'NOGO',
       category: 'ABURobocon 2024',
       image: '/bandhayudha-photo/Robots/R1_24.png',
-      scale: 'scale-100',
-      y_position: '0',
+      scale: 'scale-105',
+      y_position: '6',
       description: 'NOGO is an advanced semi-autonomous robot designed for the ABU Robocon 2024 competition. It features intelligent navigation and precision manipulation capabilities for complex field challenges.',
       specs: [
         'Dual BLDC Shooting Mechanism',
@@ -89,7 +89,7 @@ const Robots = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Calculate animation values based on scroll position
+  // Calculate animation values based on scroll position - UPDATED LOGIC
   const getAnimationStyle = (robotId, elementRef) => {
     if (typeof window === 'undefined') return {};
     
@@ -149,12 +149,12 @@ const Robots = () => {
               >
                 <Card className="overflow-hidden shadow-xl md:shadow-2xl border-0 bg-gradient-to-br from-gray-50 to-white w-full max-w-full lg:w-auto lg:max-w-none">
                   <CardContent className="p-0 w-full max-w-full overflow-x-hidden lg:overflow-x-visible lg:w-auto lg:max-w-none">
-                    <div className={`grid lg:grid-cols-2 gap-0 items-center w-full max-w-full lg:w-auto lg:max-w-none ${
+                    <div className={`grid lg:grid-cols-2 gap-0 min-h-[400px] sm:min-h-[500px] md:min-h-[600px] w-full max-w-full lg:w-auto lg:max-w-none ${
                       index % 2 === 1 ? 'lg:grid-flow-col-dense' : ''
                     }`}>
                       {/* Robot Image */}
                       <div className={`${index % 2 === 1 ? 'lg:col-start-2' : ''} w-full max-w-full overflow-hidden lg:w-auto lg:max-w-none lg:overflow-visible`}>
-                        <div className="relative group overflow-hidden h-[300px] sm:h-[400px] md:h-[450px] lg:h-[500px] transition-all duration-300 hover:shadow-xl lg:hover:shadow-2xl hover:-translate-y-1 lg:hover:-translate-y-2 cursor-pointer w-full max-w-full lg:w-auto lg:max-w-none"
+                        <div className="relative group overflow-hidden h-[300px] sm:h-[350px] md:h-[400px] lg:h-[600px] transition-all duration-300 hover:shadow-xl lg:hover:shadow-2xl hover:-translate-y-1 lg:hover:-translate-y-2 cursor-pointer w-full max-w-full lg:w-auto lg:max-w-none"
                              onClick={() => setZoomedRobot(robot)}>
                           <img
                             src={robot.image}
