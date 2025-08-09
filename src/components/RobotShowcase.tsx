@@ -12,7 +12,7 @@ const RobotShowcase = () => {
       id: 1,
       name: 'Slamet',
       category: 'Basketball Shooting Robot',
-      series: 'BASKETBALL-SERIES',
+      series: 'BASKETBALL',
       image: '/bandhayudha-photo/Robots/R1_25_CROP.JPG',
       description: 'Next generation competitive robot for ABU Robocon 2025',
       models: ['SL-25']
@@ -21,7 +21,7 @@ const RobotShowcase = () => {
       id: 2,
       name: 'ULO',
       category: 'Silo Robot',
-      series: 'HARVEST-SERIES',
+      series: 'HARVEST-DAY',
       image: '/bandhayudha-photo/Robots/R2_24.png',
       description: 'Autonomous robot with advanced navigation for ABU Robocon 2024',
       models: ['ULO24']
@@ -30,7 +30,7 @@ const RobotShowcase = () => {
       id: 3,
       name: 'NOGO',
       category: 'Paddy Rice Robot',
-      series: 'HARVEST-SERIES',
+      series: 'HARVEST-DAY',
       image: '/bandhayudha-photo/Robots/R1_24.png',
       description: 'Semi-autonomous precision robot for complex field challenges',
       models: ['NOGO24']
