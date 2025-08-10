@@ -40,6 +40,7 @@ const Navigation = () => {
 
   // FIXED: Reorganize navLinks to remove Members and keep proper order
   const navLinks = [
+    { name: 'Home', href: '/', isDropdown: false },
     { name: 'About', href: '/about', isDropdown: false },
     { name: 'Robots', href: '/robots', isDropdown: false },
     { name: 'Team', href: '#', isDropdown: true }, // Special team dropdown
