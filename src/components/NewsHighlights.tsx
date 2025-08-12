@@ -172,7 +172,7 @@ const NewsHighlights: React.FC = () => {
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-12">
           <div className="mb-6 md:mb-0">
             <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
-              News & <span className="text-tech-blue">Highlights</span>
+              News
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl">
               Stay updated with our latest achievements, innovations, and breakthrough developments in robotics technology
