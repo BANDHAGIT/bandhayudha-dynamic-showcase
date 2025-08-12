@@ -16,7 +16,7 @@ const NewsCard: React.FC<{ article: NewsArticle; index?: number }> = ({ article,
     >
       <div className="relative overflow-hidden">
         {article.type === 'blog' && article.blogId ? (
-          <Link to={`/blog/${article.blogId}`} className="block">
+          <Link to={`/blog/${article.blogId}`} state={{ from: 'news' }} className="block">
             <img 
               src={article.imageUrl}
               alt={article.title}
@@ -61,6 +61,7 @@ const NewsCard: React.FC<{ article: NewsArticle; index?: number }> = ({ article,
           {article.type === 'blog' && article.blogId ? (
             <Link
               to={`/blog/${article.blogId}`}
+              state={{ from: 'news' }}
               className="hover:text-tech-blue transition-colors duration-200 cursor-pointer"
             >
               {article.title}
@@ -98,6 +99,7 @@ const NewsCard: React.FC<{ article: NewsArticle; index?: number }> = ({ article,
           {article.type === 'blog' && article.blogId ? (
             <Link
               to={`/blog/${article.blogId}`}
+              state={{ from: 'news' }}
               className="flex items-center space-x-1 text-tech-blue hover:text-tech-blue/80 font-medium transition-colors duration-200"
             >
               <span>Baca Selengkapnya</span>

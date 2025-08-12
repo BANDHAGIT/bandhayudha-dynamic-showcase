@@ -1,5 +1,5 @@
-import React from 'react';
-import { useParams, Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useParams, Link, useLocation, useNavigate } from 'react-router-dom';
 import { Calendar, User, ArrowLeft, Tag, Clock } from 'lucide-react';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
@@ -250,6 +250,35 @@ const blogPosts: BlogPost[] = [
 
 const Blog: React.FC = () => {
   const { id } = useParams<{ id: string }>();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const [backPath, setBackPath] = useState('/news');
+  const [backLabel, setBackLabel] = useState('Back to News');
+  
+  useEffect(() => {
+    // Check if user came from home page or news highlights
+    const referrer = document.referrer;
+    const state = location.state as { from?: string } | null;
+    
+    if (state?.from === 'home' || referrer.includes('/#') || referrer.endsWith('/')) {
+      setBackPath('/');
+      setBackLabel('Back to Home');
+    } else if (referrer.includes('/news')) {
+      setBackPath('/news');
+      setBackLabel('Back to News');
+    } else {
+      // Default behavior - if unsure, use browser back
+      setBackPath('');
+      setBackLabel('Back to News');
+    }
+  }, [location]);
+  
+  const handleBackClick = (e: React.MouseEvent) => {
+    if (backPath === '') {
+      e.preventDefault();
+      navigate(-1); // Go back in browser history
+    }
+  };
   
   // Find blog post by ID
   const post = blogPosts.find(p => p.id === id);
@@ -262,13 +291,23 @@ const Blog: React.FC = () => {
           <div className="container mx-auto px-4 py-20 text-center">
             <h1 className="text-4xl font-bold text-foreground mb-4">Blog Post Not Found</h1>
             <p className="text-muted-foreground mb-8">The blog post you're looking for doesn't exist.</p>
-            <Link 
-              to="/news" 
-              className="inline-flex items-center text-tech-blue hover:text-tech-blue/80 font-medium"
-            >
-              <ArrowLeft className="w-4 h-4 mr-2" />
-              Back to News
-            </Link>
+            {backPath ? (
+              <Link 
+                to={backPath}
+                className="inline-flex items-center text-tech-blue hover:text-tech-blue/80 font-medium"
+              >
+                <ArrowLeft className="w-4 h-4 mr-2" />
+                {backLabel}
+              </Link>
+            ) : (
+              <button
+                onClick={handleBackClick}
+                className="inline-flex items-center text-tech-blue hover:text-tech-blue/80 font-medium"
+              >
+                <ArrowLeft className="w-4 h-4 mr-2" />
+                {backLabel}
+              </button>
+            )}
           </div>
         </div>
         <Footer />
@@ -285,13 +324,23 @@ const Blog: React.FC = () => {
           <div className="container mx-auto px-4">
             {/* Back Navigation */}
             <div className="mb-8">
-              <Link 
-                to="/news" 
-                className="inline-flex items-center text-tech-blue hover:text-tech-blue/80 font-medium transition-colors duration-200"
-              >
-                <ArrowLeft className="w-4 h-4 mr-2" />
-                Kembali ke News
-              </Link>
+              {backPath ? (
+                <Link 
+                  to={backPath}
+                  className="inline-flex items-center text-tech-blue hover:text-tech-blue/80 font-medium transition-colors duration-200"
+                >
+                  <ArrowLeft className="w-4 h-4 mr-2" />
+                  {backLabel}
+                </Link>
+              ) : (
+                <button
+                  onClick={handleBackClick}
+                  className="inline-flex items-center text-tech-blue hover:text-tech-blue/80 font-medium transition-colors duration-200"
+                >
+                  <ArrowLeft className="w-4 h-4 mr-2" />
+                  {backLabel}
+                </button>
+              )}
             </div>
 
             {/* Article Header */}
@@ -362,37 +411,6 @@ const Blog: React.FC = () => {
                       {tag}
                     </span>
                   ))}
-                </div>
-              </div>
-
-              {/* Call to Action */}
-              <div className="mt-12 p-8 bg-gradient-to-r from-tech-blue/10 to-accent/10 rounded-lg border border-border/40">
-                <h3 className="text-xl font-semibold text-foreground mb-4">
-                  Tertarik dengan Tim Bandhayudha?
-                </h3>
-                <p className="text-muted-foreground mb-6">
-                  Bergabunglah dengan kami dan jadilah bagian dari inovasi robotika Indonesia. 
-                  Pelajari lebih lanjut tentang tim, divisi, dan cara bergabung.
-                </p>
-                <div className="flex flex-wrap gap-4">
-                  <Link
-                    to="/about"
-                    className="inline-flex items-center px-4 py-2 bg-tech-blue text-white font-medium rounded-lg hover:bg-tech-blue/90 transition-colors duration-200"
-                  >
-                    Tentang Kami
-                  </Link>
-                  <Link
-                    to="/division"
-                    className="inline-flex items-center px-4 py-2 border border-border text-foreground font-medium rounded-lg hover:bg-accent transition-colors duration-200"
-                  >
-                    Lihat Divisi
-                  </Link>
-                  <Link
-                    to="/contact"
-                    className="inline-flex items-center px-4 py-2 border border-border text-foreground font-medium rounded-lg hover:bg-accent transition-colors duration-200"
-                  >
-                    Kontak Kami
-                  </Link>
                 </div>
               </div>
             </div>
