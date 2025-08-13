@@ -13,6 +13,7 @@ const Support = () => {
       category: 'PCB Manufacturing',
       description: 'Leading PCB prototype and manufacturing service providing high-quality circuit boards for our robotics projects.',
       logo: '/bandhayudha-photo/JLCPcb_Logo.png',
+      logo_invert: false,
       backgroundImage: 'https://jlcpcb.com/_nuxt/high_layer_2x.Bz9phkQ_.png', // Add your background image path
       website: 'https://jlcpcb.com',
       services: ['PCB Prototyping', 'PCB Assembly', 'Component Sourcing', 'Quality Testing'],
@@ -23,6 +24,7 @@ const Support = () => {
       category: '3D CAD Software',
       description: 'Industry-leading 3D CAD software enabling our team to design, simulate, and validate complex mechanical systems.',
       logo: '/bandhayudha-photo/SolidWorks_Logo.svg.png',
+      logo_invert: false,
       backgroundImage: 'https://www.solidworks.com/sites/default/filesd10/styles/webp/public/2025-01/Nemo2.jpg.webp?itok=MeFOakVP', // Add your background image path
       website: 'https://solidworks.com',
       services: ['3D Modeling', 'Simulation', 'Design Validation', 'Collaboration Tools'],
@@ -33,6 +35,7 @@ const Support = () => {
       category: 'PCB Design Software',
       description: 'Advanced PCB design software providing comprehensive tools for electronic system design and development.',
       logo: '/bandhayudha-photo/Altium_Logo_BLK.png',
+      logo_invert: true,
       backgroundImage: 'https://www.develer.com/wp-content/uploads/2019/06/Corsi-Altium-Designer.jpeg', // Add your background image path
       website: 'https://altium.com',
       services: ['PCB Design', 'Schematic Capture', 'Library Management', 'Design Rules Check'],
@@ -43,6 +46,7 @@ const Support = () => {
       category: 'Electronics Platform',
       description: 'Open hardware facilitator providing electronic modules, sensors, and prototyping platforms for rapid development.',
       logo: '/bandhayudha-photo/Seeed_studio_Logo.png',
+      logo_invert: false,
       backgroundImage: 'https://www.seeedstudio.com/blog/wp-content/uploads/2025/02/1-102010590-seeed-studio-xiao-mg24.jpg', // Add your background image path
       website: 'https://seeedstudio.com',
       services: ['Sensor Modules', 'Development Boards', 'Grove System', 'Custom Manufacturing'],
@@ -53,6 +57,7 @@ const Support = () => {
       category: 'Circuit Design',
       description: 'Web-based EDA tool for circuit design, simulation, and PCB layout with seamless integration to manufacturing.',
       logo: '/bandhayudha-photo/EasyEDA_logo.png',
+      logo_invert: false,
       backgroundImage: 'https://docs.easyeda.com/storage/images/en/PCB/PCB-View/PCB-View_20240624_110005.png', // Add your background image path
       website: 'https://easyeda.com',
       services: ['Circuit Design', 'PCB Layout', 'Simulation', 'Component Library'],
@@ -63,6 +68,7 @@ const Support = () => {
       category: 'Sensor Technology',
       description: 'World-leading manufacturer of intelligent sensors and sensor solutions for industrial automation and robotics.',
       logo: '/bandhayudha-photo/SICK_Logo.png',
+      logo_invert: false,
       backgroundImage: 'https://cdn.sick.com/media/pim/9/79/179/IM0106179.png', // Add your background image path
       website: 'https://sick.com',
       services: ['LiDAR Sensors', 'Vision Systems', 'Safety Sensors', 'Encoder Systems'],
@@ -73,6 +79,7 @@ const Support = () => {
       category: '3D Printing Materials',
       description: 'Premium 3D printing filaments and materials enabling high-quality prototyping and functional part production.',
       logo: '/bandhayudha-photo/Polymaker_Logo.png',
+      logo_invert: false,
       backgroundImage: 'https://polymaker.com/wp-content/uploads/6f8a5b75-84ec-48c9-885d-de76f9b7ae4e.jpeg', // Add your background image path
       website: 'https://polymaker.com',
       services: ['PLA Filaments', 'Engineering Materials', 'Support Materials', 'Custom Solutions'],
@@ -139,7 +146,7 @@ const Support = () => {
                         <img
                           src={sponsor.logo}
                           alt={sponsor.name}
-                          className="max-h-24 max-w-[80%] w-auto h-auto object-contain filter drop-shadow-lg"
+                          className={`max-h-24 max-w-[80%] w-auto h-auto object-contain filter drop-shadow-lg ${sponsor.logo_invert ? 'invert' : ''}`}
                           style={{
                             maxHeight: '6rem', // 24 in Tailwind = 6rem
                             maxWidth: '80%'
