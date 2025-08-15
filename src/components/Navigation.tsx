@@ -8,6 +8,7 @@ const Navigation = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isTeamDropdownOpen, setIsTeamDropdownOpen] = useState(false);
+  const [isMobileTeamExpanded, setIsMobileTeamExpanded] = useState(false);
   const [hoveredTeamItem, setHoveredTeamItem] = useState<string | null>(null);
   const [isNavbarHovered, setIsNavbarHovered] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -16,11 +17,25 @@ const Navigation = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      const scrollY = window.scrollY;
+      // Only update if scroll position has changed significantly to prevent unnecessary re-renders
+      setIsScrolled(scrollY > 20);
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    // Throttle scroll events to improve performance and reduce blinking
+    let ticking = false;
+    const throttledScrollHandler = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          handleScroll();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    window.addEventListener('scroll', throttledScrollHandler, { passive: true });
+    return () => window.removeEventListener('scroll', throttledScrollHandler);
   }, []);
 
   // Close dropdown when clicking outside
@@ -101,7 +116,7 @@ const Navigation = () => {
   return (
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled || isNavbarHovered
+        location.pathname !== '/' || isScrolled || isNavbarHovered
           ? 'bg-background/95 backdrop-blur-md shadow-elevation-medium'
           : 'bg-transparent'
       }`}
@@ -297,25 +312,40 @@ const Navigation = () => {
             {navLinks.map((link) => (
               <div key={link.name}>
                 {link.isDropdown ? (
-                  // Team section di mobile
+                  // Team section di mobile dengan collapse
                   <div className="space-y-2">
-                    <div className="text-foreground font-medium py-2 border-b border-border">
-                      {link.name}
-                    </div>
-                    {teamDropdownItems.map((item) => (
-                      <Link
-                        key={item.name}
-                        to={item.href}
-                        onClick={() => setIsMobileMenuOpen(false)}
-                        className="group flex items-center w-full p-3 text-sm text-foreground hover:bg-accent hover:text-accent-foreground transition-colors duration-200 rounded-md border border-border ml-4"
-                      >
-                        <item.icon className="h-5 w-5 mr-3 text-tech-blue group-hover:text-accent-foreground transition-colors duration-200" />
-                        <div className="flex flex-col items-start">
-                          <span className="font-medium">{item.name}</span>
-                          <span className="text-xs text-muted-foreground group-hover:text-accent-foreground/70">{item.description}</span>
-                        </div>
-                      </Link>
-                    ))}
+                    <button
+                      onClick={() => setIsMobileTeamExpanded(!isMobileTeamExpanded)}
+                      className="flex items-center justify-between w-full text-foreground font-medium py-2 border-b border-border"
+                    >
+                      <span>{link.name}</span>
+                      <ChevronDown className={`h-4 w-4 transition-transform duration-200 ${
+                        isMobileTeamExpanded ? 'rotate-180' : ''
+                      }`} />
+                    </button>
+                    
+                    {/* Collapsible Team Items */}
+                    {isMobileTeamExpanded && (
+                      <div className="space-y-2 ml-4 animate-in slide-in-from-top-2 duration-200">
+                        {teamDropdownItems.map((item) => (
+                          <Link
+                            key={item.name}
+                            to={item.href}
+                            onClick={() => {
+                              setIsMobileMenuOpen(false);
+                              setIsMobileTeamExpanded(false);
+                            }}
+                            className="group flex items-center w-full p-3 text-sm text-foreground hover:bg-accent hover:text-accent-foreground transition-colors duration-200 rounded-md border border-border"
+                          >
+                            <item.icon className="h-5 w-5 mr-3 text-tech-blue group-hover:text-accent-foreground transition-colors duration-200" />
+                            <div className="flex flex-col items-start">
+                              <span className="font-medium">{item.name}</span>
+                              <span className="text-xs text-muted-foreground group-hover:text-accent-foreground/70">{item.description}</span>
+                            </div>
+                          </Link>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 ) : (
                   // Regular mobile link

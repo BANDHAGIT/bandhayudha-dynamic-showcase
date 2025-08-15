@@ -90,7 +90,7 @@ const Robots = () => {
   }, []);
 
   // Calculate animation values based on scroll position - UPDATED LOGIC
-  const getAnimationStyle = (robotId, elementRef) => {
+  const getAnimationStyle = (robotId) => {
     if (typeof window === 'undefined') return {};
     
     const element = document.getElementById(`robot-${robotId}`);
@@ -109,11 +109,12 @@ const Robots = () => {
     // Calculate progress based on element position relative to trigger and completion points
     const progress = Math.max(0, Math.min(1, (triggerPoint - elementTop) / (triggerPoint - completionPoint)));
     
-    // Different slide directions based on robot ID (odd/even)
+    // Only apply slide animation on desktop (lg and above), disable on mobile to prevent horizontal scroll
+    const isMobile = window.innerWidth < 1024; // lg breakpoint is 1024px
     const slideDistance = 100; // pixels
-    const translateX = robotId % 2 === 1 
+    const translateX = isMobile ? 0 : (robotId % 2 === 1 
       ? slideDistance * (1 - progress)  // Odd IDs: slide from right to left
-      : -slideDistance * (1 - progress); // Even IDs: slide from left to right
+      : -slideDistance * (1 - progress)); // Even IDs: slide from left to right
     
     const opacity = progress;
     
@@ -124,42 +125,42 @@ const Robots = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background overflow-x-hidden lg:overflow-x-visible">
+    <div className="min-h-screen bg-background overflow-x-hidden">
       <Navigation />
-      <div className="pt-16 w-full overflow-x-hidden lg:overflow-x-visible">
+      <div className="pt-16">
         {/* Hero Section */}
-        <section className="py-12 sm:py-16 md:py-20 bg-gradient-hero text-white w-full overflow-x-hidden lg:overflow-x-visible">
-          <div className="container mx-auto px-4 text-center w-full max-w-full lg:w-auto lg:max-w-none">
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 break-words lg:break-normal">Our Robots</h1>
-            <p className="text-base sm:text-lg md:text-xl lg:text-2xl max-w-xs sm:max-w-lg md:max-w-2xl lg:max-w-3xl mx-auto leading-relaxed break-words lg:break-normal">
+        <section className="py-12 sm:py-16 md:py-20 bg-gradient-hero text-white">
+          <div className="container mx-auto px-4 text-center">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6">Our Robots</h1>
+            <p className="text-base sm:text-lg md:text-xl lg:text-2xl max-w-3xl mx-auto leading-relaxed">
               Meet our championship-winning autonomous robots, engineered for excellence in competitive robotics
             </p>
           </div>
         </section>
 
         {/* Robots Showcase */}
-        <section className="py-12 sm:py-16 md:py-20 w-full overflow-x-hidden lg:overflow-x-visible">
-          <div className="container mx-auto px-4 w-full max-w-full lg:w-auto lg:max-w-none">
+        <section className="py-12 sm:py-16 md:py-20">
+          <div className="container mx-auto px-4">
             {robots.map((robot, index) => (
               <div
                 key={robot.id}
                 id={`robot-${robot.id}`}
-                className="mb-16 sm:mb-20 md:mb-24 lg:mb-32 last:mb-12 sm:last:mb-16 md:last:mb-20 w-full max-w-full overflow-x-hidden lg:overflow-x-visible lg:w-auto lg:max-w-none"
+                className="mb-16 sm:mb-20 md:mb-24 lg:mb-32 last:mb-12 sm:last:mb-16 md:last:mb-20"
                 style={getAnimationStyle(robot.id)}
               >
-                <Card className="overflow-hidden shadow-xl md:shadow-2xl border-0 bg-gradient-to-br from-gray-50 to-white w-full max-w-full lg:w-auto lg:max-w-none">
-                  <CardContent className="p-0 w-full max-w-full overflow-x-hidden lg:overflow-x-visible lg:w-auto lg:max-w-none">
-                    <div className={`grid lg:grid-cols-2 gap-0 min-h-[400px] sm:min-h-[500px] md:min-h-[600px] w-full max-w-full lg:w-auto lg:max-w-none ${
+                <Card className="overflow-hidden shadow-xl md:shadow-2xl border-0 bg-gradient-to-br from-gray-50 to-white">
+                  <CardContent className="p-0">
+                    <div className={`grid lg:grid-cols-2 gap-0 min-h-[400px] sm:min-h-[500px] md:min-h-[600px] ${
                       index % 2 === 1 ? 'lg:grid-flow-col-dense' : ''
                     }`}>
                       {/* Robot Image */}
-                      <div className={`${index % 2 === 1 ? 'lg:col-start-2' : ''} w-full max-w-full overflow-hidden lg:w-auto lg:max-w-none lg:overflow-visible`}>
-                        <div className="relative group overflow-hidden h-[300px] sm:h-[350px] md:h-[400px] lg:h-[600px] transition-all duration-300 hover:shadow-xl lg:hover:shadow-2xl hover:-translate-y-1 lg:hover:-translate-y-2 cursor-pointer w-full max-w-full lg:w-auto lg:max-w-none"
+                      <div className={`${index % 2 === 1 ? 'lg:col-start-2' : ''}`}>
+                        <div className="relative group overflow-hidden h-[300px] sm:h-[350px] md:h-[400px] lg:h-[600px] transition-all duration-300 hover:shadow-xl lg:hover:shadow-2xl hover:-translate-y-1 lg:hover:-translate-y-2 cursor-pointer"
                              onClick={() => setZoomedRobot(robot)}>
                           <img
                             src={robot.image}
                             alt={robot.name}
-                            className={`object-cover h-full w-full transform ${robot.scale} translate-y-${robot.y_position} transition-transform duration-300 group-hover:scale-105 max-w-full lg:max-w-none`}
+                            className={`object-cover h-full w-full transform ${robot.scale} translate-y-${robot.y_position} transition-transform duration-300 group-hover:scale-105`}
                           />
                           {/* Badge positioned absolute */}
                           <Badge className="absolute top-3 left-3 sm:top-4 sm:left-4 bg-tech-blue text-white z-10 text-xs sm:text-sm">
@@ -179,42 +180,42 @@ const Robots = () => {
                       {/* Robot Info */}
                       <div className={`${index % 2 === 1 ? 
                         'lg:col-start-1 lg:row-start-1' : ''
-                      } p-4 sm:p-6 md:p-8 lg:p-12 flex flex-col justify-center w-full max-w-full overflow-x-hidden lg:w-auto lg:max-w-none lg:overflow-x-visible`}>
-                        <div className="space-y-4 sm:space-y-5 md:space-y-6 w-full max-w-full lg:w-auto lg:max-w-none">
-                          <div className="w-full max-w-full lg:w-auto lg:max-w-none">
-                            <h3 className="text-2xl sm:text-3xl md:text-3xl lg:text-4xl font-bold text-foreground mb-3 sm:mb-4 break-words lg:break-normal">
+                      } p-4 sm:p-6 md:p-8 lg:p-12 flex flex-col justify-center`}>
+                        <div className="space-y-4 sm:space-y-5 md:space-y-6">
+                          <div>
+                            <h3 className="text-2xl sm:text-3xl md:text-3xl lg:text-4xl font-bold text-foreground mb-3 sm:mb-4">
                               {robot.name}
                             </h3>
-                            <p className="text-sm sm:text-base lg:text-lg text-muted-foreground leading-relaxed break-words lg:break-normal">
+                            <p className="text-sm sm:text-base lg:text-lg text-muted-foreground leading-relaxed">
                               {robot.description}
                             </p>
                           </div>
 
                           {/* Technical Specifications */}
-                          <div className="w-full max-w-full lg:w-auto lg:max-w-none">
-                            <h4 className="text-lg sm:text-xl font-bold text-foreground mb-3 sm:mb-4 flex items-center break-words lg:break-normal">
+                          <div>
+                            <h4 className="text-lg sm:text-xl font-bold text-foreground mb-3 sm:mb-4 flex items-center">
                               <Cpu className="h-4 w-4 sm:h-5 sm:w-5 text-tech-blue mr-2 flex-shrink-0" />
                               <span>Technical Specifications</span>
                             </h4>
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3 w-full max-w-full lg:w-auto lg:max-w-none">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3">
                               {robot.specs.map((spec, specIndex) => (
-                                <div key={specIndex} className="flex items-start lg:items-center space-x-2 w-full max-w-full overflow-hidden lg:overflow-visible lg:w-auto lg:max-w-none">
-                                  <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-tech-blue rounded-full flex-shrink-0 mt-2 lg:mt-0"></div>
-                                  <span className="text-xs sm:text-sm lg:text-base text-muted-foreground break-words lg:break-normal flex-1 min-w-0 lg:min-w-auto">{spec}</span>
+                                <div key={specIndex} className="flex items-center space-x-2">
+                                  <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-tech-blue rounded-full flex-shrink-0"></div>
+                                  <span className="text-xs sm:text-sm lg:text-base text-muted-foreground">{spec}</span>
                                 </div>
                               ))}
                             </div>
                           </div>
 
                           {/* Achievements */}
-                          <div className="w-full max-w-full lg:w-auto lg:max-w-none">
-                            <h4 className="text-lg sm:text-xl font-bold text-foreground mb-3 sm:mb-4 flex items-center break-words lg:break-normal">
+                          <div>
+                            <h4 className="text-lg sm:text-xl font-bold text-foreground mb-3 sm:mb-4 flex items-center">
                               <Target className="h-4 w-4 sm:h-5 sm:w-5 text-orange-500 mr-2 flex-shrink-0" />
                               <span>Achievements</span>
                             </h4>
-                            <div className="flex flex-wrap gap-2 w-full max-w-full lg:w-auto lg:max-w-none">
+                            <div className="flex flex-wrap gap-2">
                               {robot.achievements.map((achievement, achIndex) => (
-                                <Badge key={achIndex} className="bg-orange-100 text-orange-800 hover:bg-orange-200 text-xs sm:text-sm break-words lg:break-normal">
+                                <Badge key={achIndex} className="bg-orange-100 text-orange-800 hover:bg-orange-200 text-xs sm:text-sm">
                                   {achievement}
                                 </Badge>
                               ))}
@@ -222,7 +223,7 @@ const Robots = () => {
                           </div>
 
                           {/* Action Button */}
-                          <div className="w-full max-w-full lg:w-auto lg:max-w-none">
+                          <div>
                             <Button 
                               className="w-fit bg-tech-blue hover:bg-tech-blue/90 text-white group text-sm sm:text-base mt-2 sm:mt-4"
                               onClick={() => setZoomedRobot(robot)}

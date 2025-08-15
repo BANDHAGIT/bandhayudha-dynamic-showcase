@@ -193,16 +193,12 @@ const Division = () => {
     const isVisible = visibleCards.includes(index);
     
     if (!isVisible) {
-      // Pada mobile dan desktop, tetap alternating slide dari kiri/kanan
-      const isLeftColumn = index % 2 === 0; // Division 1, 3 (index 0, 2)
-      
       if (isMobile) {
-        // Mobile: gunakan translate yang lebih kecil agar tidak keluar layar
-        return isLeftColumn 
-          ? '-translate-x-1/2 opacity-0' 
-          : 'translate-x-1/2 opacity-0';
+        // Mobile: hanya fade animation, tidak ada slide untuk mencegah horizontal scroll
+        return 'opacity-0';
       } else {
-        // Desktop: gunakan translate penuh
+        // Desktop: tetap gunakan slide animation
+        const isLeftColumn = index % 2 === 0; // Division 1, 3 (index 0, 2)
         return isLeftColumn 
           ? '-translate-x-full opacity-0' 
           : 'translate-x-full opacity-0';
@@ -213,7 +209,7 @@ const Division = () => {
   };
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen overflow-x-hidden">
       <Navigation />
       <div className="pt-16">
       {/* Hero Section */}
