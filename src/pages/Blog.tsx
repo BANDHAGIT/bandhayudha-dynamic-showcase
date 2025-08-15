@@ -116,7 +116,7 @@ const blogPosts: BlogPost[] = [
     date: 'Agustus 5, 2025',
     readTime: '12 menit',
     category: 'Teknologi',
-    tags: ['Robotika', 'AI', 'KRAI 2025', 'Inovasi', 'Basketball'],
+    tags: ['Robotics', 'AI', 'KRAI 2025', 'Basketball'],
     imageUrl: 'https://undip.ac.id/wp-content/uploads/2025/07/DSC04042-edit.jpg',
     featured: true
   },
@@ -242,7 +242,7 @@ const blogPosts: BlogPost[] = [
     date: 'Juli 15, 2023',
     readTime: '15 menit',
     category: 'Kompetisi',
-    tags: ['KRI 2023', 'Juara 3', 'Best Design', 'Tim Story'],
+    tags: ['KRAI 2023', 'Best Design', 'Team Story'],
     imageUrl: 'https://undip.ac.id/wp-content/uploads/2023/07/Tim-Bandhayudha-Universitas-Diponegoro-Berhasil-Meraih-Juara-3-Tingkat-Nasional-dan-Penghargaan-Desain-Terbaik-pada-Ajang-Kontes-Robot-Indonesia-KRI-2023-1.jpg',
     featured: false
   }

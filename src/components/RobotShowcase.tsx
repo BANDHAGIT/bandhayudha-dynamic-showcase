@@ -205,11 +205,13 @@ const RobotShowcase = () => {
         </div>
 
         {/* Hide scrollbar CSS */}
-        <style jsx>{`
-          div::-webkit-scrollbar {
-            display: none;
-          }
-        `}</style>
+        <style>
+          {`
+            div::-webkit-scrollbar {
+              display: none;
+            }
+          `}
+        </style>
       </div>
     </section>
   );
