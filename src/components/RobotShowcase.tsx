@@ -71,7 +71,7 @@ const RobotShowcase = () => {
   };
 
   return (
-    <section className="relative min-h-screen bg-gray-900 overflow-hidden">
+    <section className="relative min-h-screen bg-gray-900 overflow-hidden py-8 md:py-12">
       {/* Background Video */}
       <video
         autoPlay
@@ -86,9 +86,9 @@ const RobotShowcase = () => {
       {/* Dark Overlay */}
       <div className="absolute inset-0 bg-black/50 z-10"></div>
       
-      <div className="relative z-20 h-screen flex flex-col">
+      <div className="relative z-20 h-full flex flex-col">
         {/* Header */}
-        <div className="pt-24 pb-8 px-6 md:px-16">
+        <div className="pt-16 md:pt-20 pb-6 md:pb-8 px-6 md:px-16">
           <p className="text-gray-400 text-sm uppercase tracking-wider mb-4">Robots</p>
           <h2 className="text-4xl md:text-5xl font-bold text-white">
             Our Championship<br />
@@ -97,10 +97,10 @@ const RobotShowcase = () => {
         </div>
 
         {/* Cards Container - FIXED RESPONSIVE ISSUE */}
-        <div className="flex-1 pb-16 overflow-hidden relative">
+        <div className="flex-1 pb-8 md:pb-16 overflow-hidden relative min-h-[400px] md:min-h-[500px]">
           <div 
             ref={scrollRef}
-            className="flex gap-3 sm:gap-4 lg:gap-6 xl:gap-8 h-full items-center overflow-x-auto px-4 sm:px-6 lg:px-12 xl:px-16 pb-4"
+            className="flex gap-3 sm:gap-4 lg:gap-6 xl:gap-8 h-full items-center overflow-x-auto px-4 sm:px-6 lg:px-12 xl:px-16 py-4"
             style={{ 
               scrollbarWidth: 'none', 
               msOverflowStyle: 'none',
@@ -112,7 +112,7 @@ const RobotShowcase = () => {
                 key={robot.id}
                 // FIXED: Changed from fixed w-[380px] h-[500px] to responsive sizing
                 // Mobile: smaller cards that fit viewport, Desktop: larger cards
-                className="flex-shrink-0 w-[280px] sm:w-[320px] md:w-[360px] lg:w-[380px] h-[400px] sm:h-[450px] md:h-[480px] lg:h-[500px]"
+                className="flex-shrink-0 w-[280px] sm:w-[320px] md:w-[360px] lg:w-[380px] h-[360px] sm:h-[400px] md:h-[440px] lg:h-[480px]"
               >
                 <Card className="h-full rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 bg-white/5 backdrop-blur-xl border-white/10 hover:bg-white hover:backdrop-blur-none group">
                   {/* Image Section */}
@@ -167,7 +167,7 @@ const RobotShowcase = () => {
             ))}
             
             {/* View Full Lineup Button - FIXED RESPONSIVE */}
-            <div className="flex-shrink-0 w-[200px] sm:w-[240px] md:w-[280px] lg:w-[300px] h-[400px] sm:h-[450px] md:h-[480px] lg:h-[500px] flex items-center justify-center">
+            <div className="flex-shrink-0 w-[200px] sm:w-[240px] md:w-[280px] lg:w-[300px] h-[360px] sm:h-[400px] md:h-[440px] lg:h-[480px] flex items-center justify-center">
               <div className="text-center">
                 <button
                   onClick={() => navigate('/robots')}
@@ -193,7 +193,7 @@ const RobotShowcase = () => {
           </div>
           
           {/* Mobile scroll hint */}
-          <div className="md:hidden absolute bottom-16 sm:bottom-20 left-1/2 transform -translate-x-1/2 text-white/60 text-xs sm:text-sm flex items-center gap-2">
+          <div className="md:hidden absolute bottom-4 md:bottom-8 left-1/2 transform -translate-x-1/2 text-white/60 text-xs sm:text-sm flex items-center gap-2">
             <svg className="w-3 h-3 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
