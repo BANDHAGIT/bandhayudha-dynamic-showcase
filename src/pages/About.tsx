@@ -62,9 +62,7 @@ const About = () => {
               <CardContent className="p-0">
                 <h2 className="text-3xl font-bold text-foreground mb-6">Our Mission</h2>
                 <p className="text-lg text-muted-foreground leading-relaxed">
-                  To advance the field of robotics through innovative design, rigorous engineering, and collaborative 
-                  research. We strive to create autonomous systems that push the boundaries of what's possible in 
-                  robotics competition and real-world applications.
+To advance robotics through innovative design, rigorous engineering, and collaborative teamwork. We are committed to developing systems that excel in competitions while fostering creativity and continuous learning. Through our efforts, we aim to inspire future engineers and make a lasting impact on society.
                 </p>
               </CardContent>
             </Card>
