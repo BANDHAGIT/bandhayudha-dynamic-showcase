@@ -24,12 +24,19 @@ const History = () => {
       description:
         'Bandhayudha secured its first international sponsor, marking a milestone in our journey toward global collaboration and innovation.',
       icon: <Globe className="h-6 w-6" />,
-      media: {
+      media1: {
         type: 'image',
         src: '/bandhayudha-photo/Team/Team_2025.JPG',
         alt: 'International sponsorship announcement',
         scale: 1.0 // Scale 100% (ukuran normal)
-      }
+      },
+      media2: null,
+      // {
+      //   type: 'image',
+      //   src: 'https://images.unsplash.com/photo-1559136555-9303baea8ebd?q=80&w=1000&auto=format&fit=crop',
+      //   alt: 'Global partnership celebration',
+      //   scale: 0.8 // Scale 80% dari ukuran normal
+      // }
     },
     {
       year: '2024',
@@ -37,12 +44,24 @@ const History = () => {
       description:
         'We successfully developed our first fully autonomous robot system, capable of navigating and executing tasks without manual intervention. This year also marked our first official sponsorship — a turning point in our journey toward becoming a competitive and sustainable robotics team.',
       icon: <Lightbulb className="h-6 w-6" />,
-      media: {
+      media1: {
         type: 'image',
         src: '/bandhayudha-photo/2024-Juara3R.jpeg',
         alt: '2024 ABU Robocon Indonesia Regional 3rd Place',
         scale: 0.9 // Scale 90% dari ukuran normal
+      },
+      media2: {
+        type: 'image',
+        src: 'https://ft.undip.ac.id/wp-content/uploads/WhatsApp-Image-2024-06-13-at-18.24.30-980x551.jpeg',
+        alt: '2024 ABU Robocon Indonesia Regional 3rd Place',
+        scale: 1.0 // Scale 100% dari ukuran normal
       }
+      // {
+      //   type: 'video',
+      //   src: 'https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4',
+      //   alt: 'Autonomous robot demonstration video',
+      //   scale: 0.7 // Scale 70% dari ukuran normal
+      // }
     },
     {
       year: '2023',
@@ -50,12 +69,19 @@ const History = () => {
       description:
         'We achieved our first national success — securing 3rd Place and the Best Design Award at the ABU Robocon Indonesia competition.',
       icon: <Award className="h-6 w-6" />,
-      media: {
+      media1: {
         type: 'image',
         src: '/bandhayudha-photo/Team/Team_2023.png',
         alt: 'Victory celebration and award ceremony',
         scale: 1.0 // Scale 100% (ukuran normal)
-      }
+      },
+      media2: null,
+      // {
+      //   type: 'image',
+      //   src: 'https://images.unsplash.com/photo-1567360425618-1594206637d2?q=80&w=1000&auto=format&fit=crop',
+      //   alt: 'Trophy and awards display',
+      //   scale: 0.6 // Scale 60% dari ukuran normal
+      // }
     },
     {
       year: '2021',
@@ -63,12 +89,19 @@ const History = () => {
       description:
         'We developed our first arrow shooting robot, showcasing our commitment to technical innovation and competitive spirit.',
       icon: <Lightbulb className="h-6 w-6" />,
-      media: null // Tidak ada foto/video untuk tahun 2021
-      // media: {
+      media1: null, // Tidak ada foto/video untuk tahun 2021
+      media2: null,
+      // media1: {
       //   type: 'video',
       //   src: '/videos/ABURobcon2021_Robot.webm',
       //   alt: 'Arrow shooting robot development',
-      //   scale: 0.8 // Scale 50% dari ukuran normal
+      //   scale: 0.8 // Scale 80% dari ukuran normal
+      // },
+      // media2: {
+      //   type: 'image',
+      //   src: 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?q=80&w=1000&auto=format&fit=crop',
+      //   alt: 'Robot prototype design',
+      //   scale: 0.7 // Scale 70% dari ukuran normal
       // }
     },
     {
@@ -77,7 +110,8 @@ const History = () => {
       description:
         'Bandhayudha was established as the official ABU Robocon team of Diponegoro University. Our journey began with a vision to reach the national stage of robotics excellence.',
       icon: <Users className="h-6 w-6" />,
-      media: null // Tidak ada foto/video untuk tahun 2009
+      media1: null, // Tidak ada foto/video untuk tahun 2009
+      media2: null,
     }
   ];
 
@@ -164,39 +198,83 @@ const History = () => {
                           <p className="text-muted-foreground leading-relaxed mb-4">{item.description}</p>
                           
                           {/* Media Section - foto atau video dengan scale */}
-                          {item.media && (
-                            <div className="mt-4">
-                              {item.media.type === 'image' ? (
-                                <img 
-                                  src={item.media.src} 
-                                  alt={item.media.alt}
-                                  className="object-cover rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 cursor-pointer hover:opacity-90"
-                                  style={getMediaStyle(item.media.scale)}
-                                  onClick={() => openImagePopup(item.media.src, item.media.alt)}
-                                  onError={(e) => {
-                                    // Jika foto gagal dimuat, sembunyikan elemen
-                                    const target = e.target as HTMLImageElement;
-                                    target.style.display = 'none';
-                                  }}
-                                />
-                              ) : item.media.type === 'video' ? (
-                                <video 
-                                  className="object-cover rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300"
-                                  style={getMediaStyle(item.media.scale)}
-                                  controls
-                                  preload="metadata"
-                                  onError={(e) => {
-                                    // Jika video gagal dimuat, sembunyikan elemen
-                                    const target = e.target as HTMLVideoElement;
-                                    target.style.display = 'none';
-                                  }}
-                                >
-                                  <source src={item.media.src} type="video/webm" />
-                                  <p className="text-sm text-muted-foreground p-4">
-                                    Your browser does not support WebM video format.
-                                  </p>
-                                </video>
-                              ) : null}
+                          {(item.media1 || item.media2) && (
+                            <div className="mt-4 space-y-3">
+                              {/* Media 1 (Atas) */}
+                              {item.media1 && (
+                                <div>
+                                  {item.media1.type === 'image' ? (
+                                    <img 
+                                      src={item.media1.src} 
+                                      alt={item.media1.alt}
+                                      className="object-cover rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 cursor-pointer hover:opacity-90"
+                                      style={getMediaStyle(item.media1.scale)}
+                                      onClick={() => openImagePopup(item.media1.src, item.media1.alt)}
+                                      onError={(e) => {
+                                        // Jika foto gagal dimuat, sembunyikan elemen
+                                        const target = e.target as HTMLImageElement;
+                                        target.style.display = 'none';
+                                      }}
+                                    />
+                                  ) : item.media1.type === 'video' ? (
+                                    <video 
+                                      className="object-cover rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300"
+                                      style={getMediaStyle(item.media1.scale)}
+                                      controls
+                                      preload="metadata"
+                                      onError={(e) => {
+                                        // Jika video gagal dimuat, sembunyikan elemen
+                                        const target = e.target as HTMLVideoElement;
+                                        target.style.display = 'none';
+                                      }}
+                                    >
+                                      <source src={item.media1.src} type="video/mp4" />
+                                      <source src={item.media1.src} type="video/webm" />
+                                      <p className="text-sm text-muted-foreground p-4">
+                                        Your browser does not support video format.
+                                      </p>
+                                    </video>
+                                  ) : null}
+                                </div>
+                              )}
+                              
+                              {/* Media 2 (Bawah) */}
+                              {item.media2 && (
+                                <div>
+                                  {item.media2.type === 'image' ? (
+                                    <img 
+                                      src={item.media2.src} 
+                                      alt={item.media2.alt}
+                                      className="object-cover rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 cursor-pointer hover:opacity-90"
+                                      style={getMediaStyle(item.media2.scale)}
+                                      onClick={() => openImagePopup(item.media2.src, item.media2.alt)}
+                                      onError={(e) => {
+                                        // Jika foto gagal dimuat, sembunyikan elemen
+                                        const target = e.target as HTMLImageElement;
+                                        target.style.display = 'none';
+                                      }}
+                                    />
+                                  ) : item.media2.type === 'video' ? (
+                                    <video 
+                                      className="object-cover rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300"
+                                      style={getMediaStyle(item.media2.scale)}
+                                      controls
+                                      preload="metadata"
+                                      onError={(e) => {
+                                        // Jika video gagal dimuat, sembunyikan elemen
+                                        const target = e.target as HTMLVideoElement;
+                                        target.style.display = 'none';
+                                      }}
+                                    >
+                                      <source src={item.media2.src} type="video/mp4" />
+                                      <source src={item.media2.src} type="video/webm" />
+                                      <p className="text-sm text-muted-foreground p-4">
+                                        Your browser does not support video format.
+                                      </p>
+                                    </video>
+                                  ) : null}
+                                </div>
+                              )}
                             </div>
                           )}
                         </CardContent>
