@@ -267,23 +267,6 @@ const Members = () => {
         github: null
       }
     },
-    {
-      name: 'Maria Santos',
-      role: 'Research Lead',
-      department: 'Computer Science',
-      year: '5th Year',
-      joinYear: 2023,
-      division: 'Programming',
-      image: null,
-      bio: 'Leading research initiatives in autonomous navigation and sensor fusion.',
-      skills: ['Research', 'SLAM', 'Sensor Fusion', 'ROS'],
-      contact: {
-        phone: '085678901234',
-        email: 'maria.santos@students.undip.ac.id',
-        linkedin: 'https://linkedin.com/in/mariasantos',
-        github: 'https://github.com/msantos'
-      }
-    }
   ];
 
   // Get unique years and sort them
