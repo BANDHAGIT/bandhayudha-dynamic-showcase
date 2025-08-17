@@ -461,7 +461,7 @@ const Members = () => {
                 <img
                   src="https://mesin.ft.undip.ac.id/wp-content/uploads/2018/02/Munadi-1.jpg"
                   alt="Dr. Munadi, S.T., M.T."
-                  className="w-48 h-56 rounded-2xl object-cover shadow-lg mb-6"
+                  className="w-48 h-56 rounded-2xl object-cover object-top shadow-lg mb-6"
                 />
                 <h3 className="text-2xl font-bold text-foreground mb-2">
                   Dr. Munadi, S.T., M.T.
