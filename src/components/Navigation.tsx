@@ -148,7 +148,7 @@ const Navigation = () => {
                   onMouseLeave={() => setIsTeamDropdownOpen(false)}
                 >
                   <button
-                    className={`${
+                    className={`relative group ${
                       location.pathname === '/' && !isScrolled && !isNavbarHovered
                         ? 'text-white hover:text-white/80' 
                         : 'text-foreground hover:text-tech-blue'
@@ -158,6 +158,8 @@ const Navigation = () => {
                     <ChevronDown className={`h-4 w-4 transition-transform duration-200 ${
                       isTeamDropdownOpen ? 'rotate-180' : ''
                     }`} />
+                    {/* Animated underline */}
+                    <span className="absolute -bottom-5 left-1/2 w-0 h-0.5 bg-tech-blue rounded-full transition-all duration-300 group-hover:w-full group-hover:left-0"></span>
                   </button>
 
                   {/* Team Dropdown Menu */}
@@ -220,13 +222,15 @@ const Navigation = () => {
                 // Regular navigation link
                 <Link
                   to={link.href}
-                  className={`transition-colors duration-200 font-medium ${
+                  className={`relative transition-colors duration-200 font-medium group ${
                     location.pathname === '/' && !isScrolled && !isNavbarHovered
                       ? 'text-white hover:text-white/80' 
                       : 'text-foreground hover:text-tech-blue'
                   }`}
                 >
                   {link.name}
+                  {/* Animated underline */}
+                  <span className="absolute -bottom-5 left-1/2 w-0 h-0.5 bg-tech-blue rounded-full transition-all duration-300 group-hover:w-full group-hover:left-0"></span>
                 </Link>
               )}
             </div>
