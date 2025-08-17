@@ -244,40 +244,21 @@ const Robots = () => {
             {/* Zoom Modal */}
             {zoomedRobot && (
               <div 
-                className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-2 sm:p-4"
+                className="fixed inset-0 bg-black bg-opacity-75 z-50 flex items-center justify-center p-4"
                 onClick={() => setZoomedRobot(null)}
               >
-                <div className="relative max-w-xs sm:max-w-md md:max-w-2xl lg:max-w-4xl max-h-[85vh] sm:max-h-[90vh] w-full">
-                  <button
-                    onClick={() => setZoomedRobot(null)}
-                    className="absolute -top-8 sm:-top-10 -right-1 sm:-right-2 text-white hover:text-gray-300 transition-colors z-10 bg-black/50 rounded-full p-1.5 sm:p-2"
-                  >
-                    <X className="w-5 h-5 sm:w-6 sm:h-6" />
-                  </button>
-                  
-                  {/* Zoomed image */}
-                  <div className="relative overflow-hidden rounded-xl sm:rounded-2xl shadow-2xl bg-white">
-                    <img
-                      src={zoomedRobot.image}
-                      alt={zoomedRobot.name}
-                      className="w-auto h-auto max-w-full max-h-[60vh] sm:max-h-[70vh] object-contain"
-                      onClick={(e) => e.stopPropagation()}
-                    />
-                    
-                    {/* Robot info overlay */}
-                    <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 to-transparent p-3 sm:p-4">
-                      <Badge className="bg-tech-blue text-white mb-2 text-xs sm:text-sm">
-                        {zoomedRobot.category}
-                      </Badge>
-                      <h3 className="text-lg sm:text-xl font-bold text-white mb-1">
-                        {zoomedRobot.name}
-                      </h3>
-                      <p className="text-white/90 text-xs sm:text-sm">
-                        Click to view details
-                      </p>
-                    </div>
-                  </div>
-                </div>
+                <button
+                  onClick={() => setZoomedRobot(null)}
+                  className="absolute top-4 right-4 text-white bg-black bg-opacity-50 rounded-full p-2 hover:bg-opacity-70 transition-all duration-200 z-10"
+                >
+                  <X className="h-6 w-6" />
+                </button>
+                <img
+                  src={zoomedRobot.image}
+                  alt={zoomedRobot.name}
+                  className="max-w-[90vw] max-h-[90vh] object-contain rounded-lg"
+                  onClick={(e) => e.stopPropagation()}
+                />
               </div>
             )}
           </div>
