@@ -1,10 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
-import { Users, Target, Lightbulb, Trophy, Award, Handshake, Globe } from 'lucide-react';
+import { Users, Target, Lightbulb, Trophy, Award, Handshake, Globe, X } from 'lucide-react';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 
 const History = () => {
+  const [popupImage, setPopupImage] = useState<{ src: string; alt: string } | null>(null);
+
+  // Fungsi untuk membuka popup gambar
+  const openImagePopup = (src: string, alt: string) => {
+    setPopupImage({ src, alt });
+  };
+
+  // Fungsi untuk menutup popup gambar
+  const closeImagePopup = () => {
+    setPopupImage(null);
+  };
+
   const timeline = [
     {
       year: '2025',
@@ -158,11 +170,13 @@ const History = () => {
                                 <img 
                                   src={item.media.src} 
                                   alt={item.media.alt}
-                                  className="object-cover rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300"
+                                  className="object-cover rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 cursor-pointer hover:opacity-90"
                                   style={getMediaStyle(item.media.scale)}
+                                  onClick={() => openImagePopup(item.media.src, item.media.alt)}
                                   onError={(e) => {
                                     // Jika foto gagal dimuat, sembunyikan elemen
-                                    e.target.style.display = 'none';
+                                    const target = e.target as HTMLImageElement;
+                                    target.style.display = 'none';
                                   }}
                                 />
                               ) : item.media.type === 'video' ? (
@@ -173,7 +187,8 @@ const History = () => {
                                   preload="metadata"
                                   onError={(e) => {
                                     // Jika video gagal dimuat, sembunyikan elemen
-                                    e.target.style.display = 'none';
+                                    const target = e.target as HTMLVideoElement;
+                                    target.style.display = 'none';
                                   }}
                                 >
                                   <source src={item.media.src} type="video/webm" />
@@ -216,6 +231,29 @@ const History = () => {
       </section>
       </div>
       <Footer />
+
+      {/* Image Popup */}
+      {popupImage && (
+        <div 
+          className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 p-4"
+          onClick={closeImagePopup}
+        >
+          <div className="relative max-w-4xl max-h-full">
+            <button
+              onClick={closeImagePopup}
+              className="absolute top-4 right-4 text-white bg-black bg-opacity-50 rounded-full p-2 hover:bg-opacity-70 transition-all duration-200 z-10"
+            >
+              <X className="h-6 w-6" />
+            </button>
+            <img
+              src={popupImage.src}
+              alt={popupImage.alt}
+              className="max-w-full max-h-full object-contain rounded-lg"
+              onClick={(e) => e.stopPropagation()}
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 };
